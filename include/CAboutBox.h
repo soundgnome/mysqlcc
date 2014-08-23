@@ -18,7 +18,7 @@
 #ifndef CABOUTBOX_H
 #define CABOUTBOX_H
 
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include "CInfoDialog.h"
 
 class CAboutBox : public CInfoDialog
@@ -26,10 +26,10 @@ class CAboutBox : public CInfoDialog
   Q_OBJECT
     
 public:
-  CAboutBox( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+  CAboutBox( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
   
 private:
-  QTextEdit* aboutWidget;
+  Q3TextEdit* aboutWidget;
 };
 
 #endif // CABOUTBOX_H

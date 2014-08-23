@@ -19,8 +19,11 @@
 #define CUSERITEM_H
 
 #include <qvariant.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QKeyEvent>
 #include "CDatabaseListViewItem.h"
-#include <qdict.h>
+#include <q3dict.h>
 
 class CUserItem : public CDatabaseListViewItem
 {

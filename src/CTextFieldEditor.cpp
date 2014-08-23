@@ -21,9 +21,11 @@
 #include "CMySQLQuery.h"
 #include "editor.h"
 #include "globals.h"
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qclipboard.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 
 CTextFieldEditor::CTextFieldEditor(QWidget *parent, CSqlTableItem *table_item, bool ro, const char* name)
 : CFieldEditorWidget(parent, ro, name), tableItem(table_item)
@@ -38,7 +40,7 @@ void CTextFieldEditor::initFieldEditorWidget()
   setCaption(tr("Text Field Editor") + " - " + tr("Column") + ": '" + tableItem->query()->fields(tableItem->index()).name +
     "' row" + ": " + QString::number(tableItem->row()) );
 
-  widgetLayout = new QGridLayout( this, 1, 1, 0, 0, "widgetLayout");
+  widgetLayout = new Q3GridLayout( this, 1, 1, 0, 0, "widgetLayout");
   editor = new Editor(this, "CTextFieldEditor");
   widgetLayout->addWidget(editor, 0, 0 );
   editor->setTextFormat(Qt::PlainText);
@@ -113,7 +115,7 @@ void CTextFieldEditor::initFieldEditorWidget()
   fileCloseAction->setIconSet(getPixmapIcon("closeIcon"));
   fileCloseAction->setAccel(0);
   
-  toolBar = new QToolBar(tr("Tools"), mainWindow());
+  toolBar = new Q3ToolBar(tr("Tools"), mainWindow());
   
   fileOpenAction->addTo(toolBar);
   fileSaveAsAction->addTo(toolBar);
@@ -125,7 +127,7 @@ void CTextFieldEditor::initFieldEditorWidget()
   editCutAction->addTo(toolBar);
   editPasteAction->addTo(toolBar);
   
-  fileMenu = new QPopupMenu(this);
+  fileMenu = new Q3PopupMenu(this);
   
   fileOpenAction->addTo(fileMenu);
   fileSaveAsAction->addTo(fileMenu);
@@ -135,7 +137,7 @@ void CTextFieldEditor::initFieldEditorWidget()
   fileCloseAction->addTo(fileMenu);
   mainWindow()->menuBar()->insertItem(tr("&File"), fileMenu);
   
-  editMenu = new QPopupMenu(this);
+  editMenu = new Q3PopupMenu(this);
   editUndoAction->addTo(editMenu);
   editRedoAction->addTo(editMenu);
   editMenu->insertSeparator();
@@ -190,7 +192,7 @@ void CTextFieldEditor::save()
 
 void CTextFieldEditor::openFile()
 {
-  QString fn = QFileDialog::getOpenFileName(QString::null, tr("Text Files") + " (*.txt);;" + tr("All Files") + " (*.*)", this);
+  QString fn = Q3FileDialog::getOpenFileName(QString::null, tr("Text Files") + " (*.txt);;" + tr("All Files") + " (*.*)", this);
   if (!fn.isEmpty())
   {
     editor->load(fn);

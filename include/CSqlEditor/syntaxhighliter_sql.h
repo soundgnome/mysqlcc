@@ -18,7 +18,7 @@
 #ifndef SQLSYNTAXHIGHLIGHTER_H
 #define SQLSYNTAXHIGHLIGHTER_H
 
-#include <qintdict.h>
+#include <q3intdict.h>
 #include <qmap.h>
 #include <private/qrichtext_p.h>
 
@@ -50,7 +50,7 @@ private:
   void removeFormat( int id );
   QTextFormat *lastFormat;
   int lastFormatId;
-  QIntDict<QTextFormat> formats; 
+  Q3IntDict<QTextFormat> formats; 
   QMap<QString, SqlCompletionEntry> *highlight_map;
 };
 

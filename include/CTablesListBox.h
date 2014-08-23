@@ -18,14 +18,17 @@
 #ifndef CTABLESLISTBOX_H
 #define CTABLESLISTBOX_H
 
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <QShowEvent>
 
-class QListBoxItem;
-class QListBox;
+class Q3ListBoxItem;
+class Q3ListBox;
 class CMySQLServer;
-class QPopupMenu;
+class Q3PopupMenu;
 
-class CTablesListBox : public QListBox
+class CTablesListBox : public Q3ListBox
 { 
   Q_OBJECT
     
@@ -40,7 +43,7 @@ signals:
 
 private slots:
   void refresh();
-  void displayMenu(QListBoxItem *item, const QPoint & pos);
+  void displayMenu(Q3ListBoxItem *item, const QPoint & pos);
   
 private:
   int numItems;

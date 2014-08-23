@@ -18,14 +18,16 @@
 #ifndef CDOCKWINDOW_H
 #define CDOCKWINDOW_H
 
-#include <qdockwindow.h>
+#include <q3dockwindow.h>
+//Added by qt3to4:
+#include <QCloseEvent>
 
-class CDockWindow : public QDockWindow
+class CDockWindow : public Q3DockWindow
 {
   Q_OBJECT
     
 public:
-  CDockWindow(Place p = InDock, QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+  CDockWindow(Place p = InDock, QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
   virtual void setCaption(const QString &s);
 
 protected:

@@ -19,7 +19,7 @@
 #define CHISTORYVIEW_H
 
 #include <qvariant.h>
-#include <qintdict.h>
+#include <q3intdict.h>
 
 #include "panels.h"
 

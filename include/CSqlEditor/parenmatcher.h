@@ -39,7 +39,7 @@
 #define PARENMATCHER_H
 
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class QTextCursor;
 
@@ -58,7 +58,7 @@ struct  Paren
 #endif
 };
 
-typedef QValueList<Paren> ParenList;
+typedef Q3ValueList<Paren> ParenList;
 
 class  ParenMatcher
 {

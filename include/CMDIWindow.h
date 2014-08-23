@@ -19,11 +19,15 @@
 #define CMDIWINDOW_H
 
 #include <qvariant.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <Q3GridLayout>
+#include <Q3PopupMenu>
 #include "CMyWindow.h"
 
-class QGridLayout; 
-class QPopupMenu;
+class Q3GridLayout; 
+class Q3PopupMenu;
 class CConsoleWindow;
 class QWorkspace;
 
@@ -45,11 +49,11 @@ private slots:
 private:
   CConsoleWindow*	consoleWindow;
   QMenuBar *menubar;
-  QPopupMenu *consoleMenu;
-  QPopupMenu *windowMenu;
-  QPopupMenu *optionsMenu;
-  QPopupMenu *helpMenu;    
-  QGridLayout* CMDIWindowLayout;
+  Q3PopupMenu *consoleMenu;
+  Q3PopupMenu *windowMenu;
+  Q3PopupMenu *optionsMenu;
+  Q3PopupMenu *helpMenu;    
+  Q3GridLayout* CMDIWindowLayout;
   void closeEvent(QCloseEvent * e);  
 };
 

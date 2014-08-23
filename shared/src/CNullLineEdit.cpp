@@ -17,6 +17,8 @@
 */
 #include "CNullLineEdit.h"
 #include <qevent.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 
 CNullLineEdit::CNullLineEdit(QWidget * parent, const char * name)
 : QLineEdit(parent, name), is_null(false)

@@ -16,7 +16,7 @@
   MA 02111-1307, USA 
 */
 #include "CFieldEditorWidget.h"
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 
 CFieldEditorWidget::CFieldEditorWidget(QWidget *parent, bool readonly, const char* name)
 :QWidget(parent, name, 0)

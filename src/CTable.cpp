@@ -22,14 +22,14 @@
 #include "CApplication.h"
 #include <qdatetime.h>
 #include <stdlib.h>
-#include <qaccel.h>
+#include <q3accel.h>
 
 #ifdef __BCPLUSPLUS__
 #include <search.h>
 #endif
 
 CTable::CTable(QWidget * parent, const char * name)
-: QTable(parent, name)
+: Q3Table(parent, name)
 {
 #ifdef DEBUG
   qDebug("CTable::CTable()");
@@ -52,7 +52,7 @@ CTable::CTable(QWidget * parent, const char * name)
   last_sort = -1;
   last_sort_dir = false;
   
-  QAccel *accel = new QAccel(this);
+  Q3Accel *accel = new Q3Accel(this);
   accel->connectItem(accel->insertItem(Qt::CTRL + Qt::Key_A), this, SLOT(select_all()));
 }
 
@@ -108,7 +108,7 @@ QString CTable::copy_data(int row, int col)
     return copy_current_selection_func(row, col);
   else
   {
-    QTableSelection sel;
+    Q3TableSelection sel;
     if (currentSelection() == -1 || forceCopyAll())
     {
       sel.init(0, 0);
@@ -208,7 +208,7 @@ void CTable::reset()
     setBlocked(false);
 }
 
-void CTable::saveTableContentsToFile(QTable *table, CMySQLServer *m, QString &fname, const QString &ext, const QString &file_txt, const QString &title)
+void CTable::saveTableContentsToFile(Q3Table *table, CMySQLServer *m, QString &fname, const QString &ext, const QString &file_txt, const QString &title)
 {
   QString contents = title + m->lineTerminator(true);
   contents += tr("Connection") + ": " + m->connectionName() + m->lineTerminator(true);
@@ -263,7 +263,7 @@ void CTable::setNumCols(int r)
   for (int i = 0; i < r; i++)
     header_sort.insert(i, false);
 
-  QTable::setNumCols(r);
+  Q3Table::setNumCols(r);
 }
 
 void CTable::sort(int col)
@@ -336,7 +336,7 @@ void CTable::mySortColumn(int col, int (*sort_func)(const void *, const void *),
   int filledRows = 0, i;
   for (i = 0; i < numRows(); ++i)
   {
-    QTableItem *itm = item(i, col);
+    Q3TableItem *itm = item(i, col);
     if (itm)
       filledRows++;
   }
@@ -348,7 +348,7 @@ void CTable::mySortColumn(int col, int (*sort_func)(const void *, const void *),
   int j = 0;
   for (i = 0; i < numRows(); ++i)
   {
-    QTableItem *itm = item(i, col);
+    Q3TableItem *itm = item(i, col);
     if (!itm)
       continue;
     items[j++].item = itm;

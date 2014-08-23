@@ -19,7 +19,9 @@
 #define CDATABASEGROUPITEM_H
 
 #include "CDatabaseListViewItem.h"
-#include <qdict.h>
+#include <q3dict.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 class CDatabaseGroupItem : public CDatabaseListViewItem
 {
@@ -40,7 +42,7 @@ private:
   QPixmap newDatabaseIcon;
   QPixmap refreshIcon;
   QPixmap newWindowIcon;
-  QDict<QString> widgetData;
+  Q3Dict<QString> widgetData;
   QPixmap openFolderIcon;
   QPixmap closedFolderIcon;
   void init();

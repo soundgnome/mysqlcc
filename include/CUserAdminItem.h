@@ -19,8 +19,10 @@
 #define CUSERADMINITEM_H
 
 #include <qvariant.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "CDatabaseListViewItem.h"
-#include <qdict.h>
+#include <q3dict.h>
 
 class CUserAdminItem : public CDatabaseListViewItem
 {
@@ -47,7 +49,7 @@ private:
   bool displayUsers();
   void printAccessError();
   bool is_connected;
-  QDict<QString> widgetData;
+  Q3Dict<QString> widgetData;
 };
 
 #endif

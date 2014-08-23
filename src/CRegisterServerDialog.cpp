@@ -26,12 +26,16 @@
 #include "panels.h"
 #include <qpixmap.h>
 #include <qfile.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qcheckbox.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qinputdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #ifndef WIN32
 #include <unistd.h>
 #endif
@@ -39,13 +43,13 @@
 static const QString connections_path = QString(CONNECTIONS_PATH);
 
 
-CMySQLOptionsTab::CMySQLOptionsTab(QWidget* parent, const char* name, WFlags fl)
+CMySQLOptionsTab::CMySQLOptionsTab(QWidget* parent, const char* name, Qt::WFlags fl)
 : CConfigDialogTab(parent, name, fl)
 {
   
   if (!name)
     setName("CMySQLOptionsTab");
-  CMySQLOptionsTabLayout = new QGridLayout(this, 1, 1, 4, 2, "CMySQLOptionsTabLayout"); 
+  CMySQLOptionsTabLayout = new Q3GridLayout(this, 1, 1, 4, 2, "CMySQLOptionsTabLayout"); 
   
   textLabel1 = new QLabel(this, "textLabel1");
   
@@ -133,13 +137,13 @@ void CMySQLOptionsTab::languageChange()
   textLabel4->setText(tr("Maximum Allowed Packet"));
   textLabel5->setText(tr("Maximum Join Size"));
   localInFile->setText(tr("Allow the use of LOAD DATA LOCAL INFILE"));
-  QWhatsThis::add(connectTimeout, tr("Specifies the amount of time the client should wait to receive a response from the server."));
-  QWhatsThis::add(selectLimit, tr("This option will automatically limit the number of results returned by a SELECT query if the LIMIT clause wasn't specified."));
-  QWhatsThis::add(netBufferLength, tr("Buffer length for TCP/IP and socket communication between the client and the server."));
-  QWhatsThis::add(maxJoinSize, tr("Automatic limit rows in a join."));
-  QWhatsThis::add(maxAllowedPacket, tr("Maximum packet-length to send and receive from to server."));
-  QWhatsThis::add(maxAllowedPacket, tr("Maximum packet-length to send and receive from to server."));
-  QWhatsThis::add(localInFile, tr("When enabled, the use of LOAD DATA LOCAL INFILE will be available."));
+  Q3WhatsThis::add(connectTimeout, tr("Specifies the amount of time the client should wait to receive a response from the server."));
+  Q3WhatsThis::add(selectLimit, tr("This option will automatically limit the number of results returned by a SELECT query if the LIMIT clause wasn't specified."));
+  Q3WhatsThis::add(netBufferLength, tr("Buffer length for TCP/IP and socket communication between the client and the server."));
+  Q3WhatsThis::add(maxJoinSize, tr("Automatic limit rows in a join."));
+  Q3WhatsThis::add(maxAllowedPacket, tr("Maximum packet-length to send and receive from to server."));
+  Q3WhatsThis::add(maxAllowedPacket, tr("Maximum packet-length to send and receive from to server."));
+  Q3WhatsThis::add(localInFile, tr("When enabled, the use of LOAD DATA LOCAL INFILE will be available."));
 }
 
 bool CMySQLOptionsTab::save(CConfig *conn)
@@ -163,7 +167,7 @@ void CMySQLOptionsTab::setDefaultValues(CConfig *Settings)
   localInFile->setChecked(strtobool(Settings->readStringEntry("Allow Local Infile")));
 }
 
-CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name, WFlags fl)
+CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name, Qt::WFlags fl)
 : CConfigDialogTab(parent, name, fl)
 {
 #ifdef DEBUG
@@ -174,9 +178,9 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
     setName("CSaveServerOptionsTab");
   
   setCaption(tr("Save Options"));
-  CSaveServerOptionsTabLayout = new QVBoxLayout(this, 4, 2, "CSaveServerOptionsTabLayout");   
+  CSaveServerOptionsTabLayout = new Q3VBoxLayout(this, 4, 2, "CSaveServerOptionsTabLayout");   
   
-  Layout20 = new QGridLayout(0, 1, 1, 0, 2, "Layout20"); 
+  Layout20 = new Q3GridLayout(0, 1, 1, 0, 2, "Layout20"); 
   QSpacerItem* spacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);  
   Layout20->addItem(spacer, 2, 2);
   QSpacerItem* spacer_2 = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);  
@@ -184,7 +188,7 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
   
   Separated = new QLineEdit(this, "Separated");  
   Separated->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)4, (QSizePolicy::SizeType)0, 0, 0, Separated->sizePolicy().hasHeightForWidth()));
-  QWhatsThis::add(Separated,tr("The specified character will be used to Separate fields whenever you save a text file."));
+  Q3WhatsThis::add(Separated,tr("The specified character will be used to Separate fields whenever you save a text file."));
   
   Layout20->addWidget(Separated, 0, 1);  
   QSpacerItem* spacer_3 = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -192,7 +196,7 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
   
   Terminated = new QLineEdit(this, "Terminated");  
   Terminated->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, Terminated->sizePolicy().hasHeightForWidth()));
-  QWhatsThis::add(Terminated,tr("The specified character will be appended to all the lines whenever you save a text file."));
+  Q3WhatsThis::add(Terminated,tr("The specified character will be appended to all the lines whenever you save a text file."));
   
   Layout20->addWidget(Terminated, 2, 1);
   
@@ -216,7 +220,7 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
   
   Enclosed = new QLineEdit(this, "Enclosed");
   Enclosed->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, Enclosed->sizePolicy().hasHeightForWidth()));
-  QWhatsThis::add(Enclosed,tr("The specified character will be used to Enclose each field whenever you save a text file."));
+  Q3WhatsThis::add(Enclosed,tr("The specified character will be used to Enclose each field whenever you save a text file."));
   
   Layout20->addWidget(Enclosed, 1, 1);
   CSaveServerOptionsTabLayout->addLayout(Layout20);
@@ -231,7 +235,7 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
   
   ReplaceEmpty = new QLineEdit(this, "ReplaceEmpty");
   ReplaceEmpty->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, ReplaceEmpty->sizePolicy().hasHeightForWidth()));
-  QWhatsThis::add(ReplaceEmpty,tr("All Empty fields will be replaced with what you type in this box for whenever you save a text file."));
+  Q3WhatsThis::add(ReplaceEmpty,tr("All Empty fields will be replaced with what you type in this box for whenever you save a text file."));
   Layout20->addWidget(ReplaceEmpty, 3, 1);
   
   TextLabel4 = new QLabel(this, "TextLabel4");  
@@ -241,7 +245,7 @@ CSaveServerOptionsTab::CSaveServerOptionsTab(QWidget * parent, const char *name,
     "<b>\\n</b>    New Line<br>\n"
     "<b>\\r</b>     Carriage Return<br>\n"
     "<b>\\t</b>     Tab"));
-  TextLabel4->setAlignment(int(QLabel::WordBreak | QLabel::AlignTop));
+  TextLabel4->setAlignment(int(Qt::TextWordWrap | Qt::AlignTop));
   CSaveServerOptionsTabLayout->addWidget(TextLabel4);
   QSpacerItem* spacer_4 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
   CSaveServerOptionsTabLayout->addItem(spacer_4);
@@ -281,7 +285,7 @@ void CSaveServerOptionsTab::setDefaultValues(CConfig *conn)
 }
 
 
-CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const char *name, WFlags fl)
+CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const char *name, Qt::WFlags fl)
 : CConfigDialogTab(parent, name, fl)
 {
 #ifdef DEBUG
@@ -292,20 +296,20 @@ CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const cha
     setName("CDatabaseServerOptionsTab");
   setCaption(tr("Databases"));
   databaseIcon = getPixmapIcon("databaseDisconnectedIcon"); 
-  CDatabaseServerOptionsTabLayout = new QGridLayout(this, 1, 1, 2, 4, "CDatabaseServerOptionsTabLayout"); 
+  CDatabaseServerOptionsTabLayout = new Q3GridLayout(this, 1, 1, 2, 4, "CDatabaseServerOptionsTabLayout"); 
   
   showAllDatabasesCheckBox = new QCheckBox(this, "showAllDatabasesCheckBox");
   showAllDatabasesCheckBox->setChecked(true);
   showAllDatabasesCheckBox->setText(tr("Show all Databases"));
-  QWhatsThis::add(showAllDatabasesCheckBox, tr("When enabled, all the databases in the server will be displayed.  If unchecked, only the databases to which you have access to will be shown.\\n\\nNOTE:  This option calls mysql_select_db() for each database to check access.  If unchecked, it will take longer to connect to a server."));
+  Q3WhatsThis::add(showAllDatabasesCheckBox, tr("When enabled, all the databases in the server will be displayed.  If unchecked, only the databases to which you have access to will be shown.\\n\\nNOTE:  This option calls mysql_select_db() for each database to check access.  If unchecked, it will take longer to connect to a server."));
   
   CDatabaseServerOptionsTabLayout->addWidget(showAllDatabasesCheckBox, 0, 0);
   
-  databaseRetrievalGroup = new QButtonGroup(this, "databaseRetrievalGroup");
+  databaseRetrievalGroup = new Q3ButtonGroup(this, "databaseRetrievalGroup");
   databaseRetrievalGroup->setColumnLayout(0, Qt::Vertical);
   databaseRetrievalGroup->layout()->setSpacing(2);
   databaseRetrievalGroup->layout()->setMargin(4);
-  databaseRetrievalGroupLayout = new QGridLayout(databaseRetrievalGroup->layout());
+  databaseRetrievalGroupLayout = new Q3GridLayout(databaseRetrievalGroup->layout());
   databaseRetrievalGroupLayout->setAlignment(Qt::AlignTop);
   databaseRetrievalGroup->setTitle(tr("Database Retrieval Method"));  
   
@@ -316,7 +320,7 @@ CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const cha
   addDatabase->setAutoDefault(false);
   addDatabase->setText(QString::null);
   connect(addDatabase, SIGNAL(clicked()), this, SLOT(AddDatabase()));
-  QWhatsThis::add(addDatabase, tr("Add new Database"));
+  Q3WhatsThis::add(addDatabase, tr("Add new Database"));
   
   databaseRetrievalGroupLayout->addWidget(addDatabase, 2, 1);
   
@@ -327,7 +331,7 @@ CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const cha
   deleteDatabase->setAutoDefault(false);
   deleteDatabase->setText(QString::null);
   connect(deleteDatabase, SIGNAL(clicked()), this, SLOT(DeleteDatabase()));
-  QWhatsThis::add(deleteDatabase, tr("Delete selected Database"));
+  Q3WhatsThis::add(deleteDatabase, tr("Delete selected Database"));
   
   databaseRetrievalGroupLayout->addWidget(deleteDatabase, 3, 1);
   QSpacerItem* spacer = new QSpacerItem(297, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -335,21 +339,21 @@ CDatabaseServerOptionsTab::CDatabaseServerOptionsTab(QWidget * parent, const cha
   
   radioButton2 = new QRadioButton(databaseRetrievalGroup, "radioButton2");
   radioButton2->setText(tr("Use the following Databases:"));
-  QWhatsThis::add(radioButton2, tr("Only the following Databases will be displayed"));
+  Q3WhatsThis::add(radioButton2, tr("Only the following Databases will be displayed"));
   connect(radioButton2, SIGNAL(toggled(bool)), this, SLOT(radioButton2Toggled(bool)));
   
   databaseRetrievalGroupLayout->addMultiCellWidget(radioButton2, 1, 1, 0, 2);
   
   radioButton1 = new QRadioButton(databaseRetrievalGroup, "radioButton1");
   radioButton1->setText(tr("Use SHOW DATABASES"));
-  QWhatsThis::add(radioButton1, tr("The SHOW DATABASES command will be used to retrieve all the Databases in the server."));
+  Q3WhatsThis::add(radioButton1, tr("The SHOW DATABASES command will be used to retrieve all the Databases in the server."));
   
   databaseRetrievalGroupLayout->addMultiCellWidget(radioButton1, 0, 0, 0, 2);
   
-  databases = new QListBox(databaseRetrievalGroup, "databases");
-  databases->setSelectionMode(QListBox::Extended);
+  databases = new Q3ListBox(databaseRetrievalGroup, "databases");
+  databases->setSelectionMode(Q3ListBox::Extended);
   databases->clear();  
-  QWhatsThis::add(databases, tr("Databases that will be shown in the Database Tree"));
+  Q3WhatsThis::add(databases, tr("Databases that will be shown in the Database Tree"));
   
   databaseRetrievalGroupLayout->addMultiCellWidget(databases, 2, 4, 0, 0);
   QSpacerItem* spacer_2 = new QSpacerItem(20, 445, QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -451,7 +455,7 @@ void CDatabaseServerOptionsTab::setDefaultValues(CConfig *conn)
 }
 
 
-CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * parent, const char *name, WFlags fl)
+CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * parent, const char *name, Qt::WFlags fl)
 : CConfigDialogTab(parent, name, fl), isEditing(isediting)
 {
 #ifdef DEBUG
@@ -461,17 +465,17 @@ CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * par
   if (!name)
     setName("CGeneralServerOptionsTab");
   setCaption(tr("General"));
-  CGeneralServerOptionsTabLayout = new QGridLayout(this, 1, 1, 4, 2, "CGeneralServerOptionsTabLayout"); 
+  CGeneralServerOptionsTabLayout = new Q3GridLayout(this, 1, 1, 4, 2, "CGeneralServerOptionsTabLayout"); 
   
   HostNameBox = new QLineEdit(this, "HostNameBox");
   
   CGeneralServerOptionsTabLayout->addMultiCellWidget(HostNameBox, 1, 1, 1, 3);
   
-  tableRetrievalGroup = new QButtonGroup(this, "tableRetrievalGroup");
+  tableRetrievalGroup = new Q3ButtonGroup(this, "tableRetrievalGroup");
   tableRetrievalGroup->setColumnLayout(0, Qt::Vertical);
   tableRetrievalGroup->layout()->setSpacing(2);
   tableRetrievalGroup->layout()->setMargin(4);
-  tableRetrievalGroupLayout = new QGridLayout(tableRetrievalGroup->layout());
+  tableRetrievalGroupLayout = new Q3GridLayout(tableRetrievalGroup->layout());
   tableRetrievalGroupLayout->setAlignment(Qt::AlignTop);
   
   retrieveShowTableStatus = new QRadioButton(tableRetrievalGroup, "retrieveShowTableStatus");
@@ -541,12 +545,12 @@ CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * par
   QSpacerItem* spacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
   CGeneralServerOptionsTabLayout->addItem(spacer_2, 4, 2);
   
-  Options = new QGroupBox(this, "Options");
+  Options = new Q3GroupBox(this, "Options");
   Options->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)5, (QSizePolicy::SizeType)0, 0, 0, Options->sizePolicy().hasHeightForWidth()));
   Options->setColumnLayout(0, Qt::Vertical);
   Options->layout()->setSpacing(2);
   Options->layout()->setMargin(4);
-  OptionsLayout = new QGridLayout(Options->layout());
+  OptionsLayout = new Q3GridLayout(Options->layout());
   OptionsLayout->setAlignment(Qt::AlignTop);
   
   socketLabel = new QLabel(Options, "socketLabel");
@@ -638,42 +642,42 @@ CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * par
 void CGeneralServerOptionsTab::languageChange()
 {
   setCaption(tr("General"));
-  QWhatsThis::add(HostNameBox, tr("Specifies the Database Server you'll be connecting to.  A valid Host Name or IP address is required to establish a connection."));
+  Q3WhatsThis::add(HostNameBox, tr("Specifies the Database Server you'll be connecting to.  A valid Host Name or IP address is required to establish a connection."));
   tableRetrievalGroup->setTitle(tr("Table retrieval method"));
   retrieveShowTableStatus->setText(tr("SHOW TABLE STATUS"));
-  QWhatsThis::add(retrieveShowTableStatus, tr("This method will make the GUI better looking but it will be slower than SHOW TABLES.  This option is recommended if the server you'll be connecting to doesn't have databases with many tables (<= 300)."));
+  Q3WhatsThis::add(retrieveShowTableStatus, tr("This method will make the GUI better looking but it will be slower than SHOW TABLES.  This option is recommended if the server you'll be connecting to doesn't have databases with many tables (<= 300)."));
   retrieveShowTables->setText(tr("SHOW TABLES"));
-  QWhatsThis::add(retrieveShowTables, tr("This method is recommended when you're connecting to a server where the databases have many tables (> 300).  It's less appealing in terms of visual effects as opposed to SHOW TABLE STATUS, but it will retrieve tables much faster.  This method will be used automatically when connecting to MySQL Servers < 3.23."));
+  Q3WhatsThis::add(retrieveShowTables, tr("This method is recommended when you're connecting to a server where the databases have many tables (> 300).  It's less appealing in terms of visual effects as opposed to SHOW TABLE STATUS, but it will retrieve tables much faster.  This method will be used automatically when connecting to MySQL Servers < 3.23."));
   portLabel->setText(tr("Port"));
   connectionLabel->setText(tr("Name"));
   hostLabel->setText(tr("Host Name"));
-  QWhatsThis::add(PasswordBox, tr("Specifies the Password associated with the User Name which will be used to connect to the Server."));
-  QWhatsThis::add(UserNameBox, tr("Specifies the User Name which will be used to connect to the Server."));
+  Q3WhatsThis::add(PasswordBox, tr("Specifies the Password associated with the User Name which will be used to connect to the Server."));
+  Q3WhatsThis::add(UserNameBox, tr("Specifies the User Name which will be used to connect to the Server."));
   passwordLabel->setText(tr("Password"));
-  QWhatsThis::add(PortBox, tr("TCP/IP Port Number to which the Server is listening to."));
-  QWhatsThis::add(ConnectionNameBox, tr("This is an alias to your connection.  Whatever you type here it will be displayed in the Left Tree."));
+  Q3WhatsThis::add(PortBox, tr("TCP/IP Port Number to which the Server is listening to."));
+  Q3WhatsThis::add(ConnectionNameBox, tr("This is an alias to your connection.  Whatever you type here it will be displayed in the Left Tree."));
   userNameLabel->setText(tr("User Name"));
   Options->setTitle(tr("Options"));
   socketLabel->setText(tr("Socket File"));
-  QWhatsThis::add(socketFile, tr("Use a Unix Socket File instead of a TCP/IP connection to the Server.  This option will override the Host Name and Port."));
+  Q3WhatsThis::add(socketFile, tr("Use a Unix Socket File instead of a TCP/IP connection to the Server.  This option will override the Host Name and Port."));
   socketBrowse->setText(QString::null);
-  QWhatsThis::add(socketBrowse, tr("Click to browse for a Socket File"));
+  Q3WhatsThis::add(socketBrowse, tr("Click to browse for a Socket File"));
   oneConnectionCheckBox->setText(tr("Use a single connection"));
-  QWhatsThis::add(oneConnectionCheckBox, tr("Enable this option if you only want to use One connection rather than having MySQL Control Center use as many as required.  This option is recommended for when connecting to a high-load server."));
+  Q3WhatsThis::add(oneConnectionCheckBox, tr("Enable this option if you only want to use One connection rather than having MySQL Control Center use as many as required.  This option is recommended for when connecting to a high-load server."));
   compressCheckBox->setText(tr("Use Compression"));
-  QWhatsThis::add(compressCheckBox, tr("Use the compressed client/server protocol."));
+  Q3WhatsThis::add(compressCheckBox, tr("Use the compressed client/server protocol."));
   blockingCheckBox->setText(tr("Blocking Queries"));
-  QWhatsThis::add(blockingCheckBox, tr("Use Blocking Queries when enabled.  This option will allow the user to keep doing things while processing a query.  If disabled, the application will block until the query is concluded. If you're unsure about this option, leave it disabled."));
+  Q3WhatsThis::add(blockingCheckBox, tr("Use Blocking Queries when enabled.  This option will allow the user to keep doing things while processing a query.  If disabled, the application will block until the query is concluded. If you're unsure about this option, leave it disabled."));
   enableCompletionCheckBox->setText(tr("Completion and Syntax Highlighting"));
-  QWhatsThis::add(enableCompletionCheckBox, tr("Enable Completion and Syntax Highlighting for the Database, Tables and Fields in this connection."));
+  Q3WhatsThis::add(enableCompletionCheckBox, tr("Enable Completion and Syntax Highlighting for the Database, Tables and Fields in this connection."));
   SSLCheckBox->setText(tr("Enable SSL"));
-  QWhatsThis::add(SSLCheckBox, tr("Enable SSL between client & server."));
+  Q3WhatsThis::add(SSLCheckBox, tr("Enable SSL between client & server."));
   promptPasswordCheckBox->setText(tr("Prompt for Password"));
-  QWhatsThis::add(promptPasswordCheckBox, tr("When enabled, a Password Dialog will appear before a connection to the Server is attempted.  This is useful for when you don't want to store your password in the settings file."));
+  Q3WhatsThis::add(promptPasswordCheckBox, tr("When enabled, a Password Dialog will appear before a connection to the Server is attempted.  This is useful for when you don't want to store your password in the settings file."));
   defaultServer->setText(tr("Make this server the Default Connection"));
-  QWhatsThis::add(defaultServer, tr("When checked, this server will be used as the default server for command line parameters."));
+  Q3WhatsThis::add(defaultServer, tr("When checked, this server will be used as the default server for command line parameters."));
   disableStartupConnect->setText(tr("Never automatically connect to this server on startup"));
-  QWhatsThis::add(disableStartupConnect, tr("When checked, MySQLCC will not automatically connect to this server on startup."));
+  Q3WhatsThis::add(disableStartupConnect, tr("When checked, MySQLCC will not automatically connect to this server on startup."));
 }
 
 
@@ -777,7 +781,7 @@ void CGeneralServerOptionsTab::setSocketFile()
   qDebug("CGeneralServerOptionsTab::setSocketFile()");
 #endif
   
-  socketFile->setText(QFileDialog::getOpenFileName("", tr("All Files (*)"), this, "setSocketFile", tr("Select the MySQL Socket file")));
+  socketFile->setText(Q3FileDialog::getOpenFileName("", tr("All Files (*)"), this, "setSocketFile", tr("Select the MySQL Socket file")));
 }
 
 void CGeneralServerOptionsTab::init()
@@ -829,7 +833,7 @@ void CRegisterServerDialog::initConnectionDialog(CMessagePanel *messagepanel)
   insertTab(new CSaveServerOptionsTab(tab()));
   customButton->setText(tr("&Test"));
   customButton->setIconSet(getPixmapIcon("pingIcon"));
-  QWhatsThis::add(customButton, tr("Click here to test the connection."));
+  Q3WhatsThis::add(customButton, tr("Click here to test the connection."));
   connect(customButton, SIGNAL(clicked()), this, SLOT(testConnection()));
   customButton->show();
   
@@ -839,7 +843,7 @@ void CRegisterServerDialog::initConnectionDialog(CMessagePanel *messagepanel)
     setDefaultValues(Settings);
     delete Settings;    
     okPushButton->setText(tr("&Apply"));
-    QWhatsThis::add(okPushButton, tr("Click to Apply changes to this connection."));
+    Q3WhatsThis::add(okPushButton, tr("Click to Apply changes to this connection."));
     if (databaseServerOptionsTab->databases->count() == 0)
     {
       CMySQLServer tmp(cfgname);
@@ -860,7 +864,7 @@ void CRegisterServerDialog::initConnectionDialog(CMessagePanel *messagepanel)
   else
   {
     okPushButton->setText(tr("&Add"));
-    QWhatsThis::add(okPushButton, tr("Click to Add a new connection."));
+    Q3WhatsThis::add(okPushButton, tr("Click to Add a new connection."));
   }
   is_default_connection_name = GeneralServerOptionsTab->HostNameBox->text() && !GeneralServerOptionsTab->HostNameBox->text().isEmpty();
   setMinimumSize(QSize(0, 349));

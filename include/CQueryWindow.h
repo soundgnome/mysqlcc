@@ -24,9 +24,16 @@
 #include "CTable.h"
 #include <qmap.h>
 #include <qtabwidget.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QLabel>
+#include <QCustomEvent>
+#include <Q3GridLayout>
+#include <Q3PopupMenu>
+#include <QCloseEvent>
 
-class QGridLayout;
+class Q3GridLayout;
 class QLabel;
 class CMySQLServer;
 class CSqlEditor;
@@ -68,7 +75,7 @@ class CQueryWindowTab : public QTabWidget
 {
   Q_OBJECT
 public:
-  CQueryWindowTab (QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+  CQueryWindowTab (QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
 
 public slots:
   void first();
@@ -199,8 +206,8 @@ class CQueryWindow : public CMyWindow
 
 public:
   enum query_type { OPEN_TABLE, QUERY, OPEN_TABLE_LIMIT };
-  CQueryWindow(QWidget * parent, CMySQLServer *m, int querytype = SQL_QUERY, ushort display=0xFFFF, const char *name = 0, WFlags f = WDestructiveClose);
-  CQueryWindow(QWidget * parent, const QString &connection_name, int querytype = SQL_QUERY, ushort display=0xFFFF, const char *name = 0, WFlags f = WDestructiveClose);
+  CQueryWindow(QWidget * parent, CMySQLServer *m, int querytype = SQL_QUERY, ushort display=0xFFFF, const char *name = 0, Qt::WFlags f = Qt::WDestructiveClose);
+  CQueryWindow(QWidget * parent, const QString &connection_name, int querytype = SQL_QUERY, ushort display=0xFFFF, const char *name = 0, Qt::WFlags f = Qt::WDestructiveClose);
   ~CQueryWindow();
 
   CQueryWindowTab * resultsTab() const { return results_tab; }
@@ -282,20 +289,20 @@ protected:
   CAction *editCutAction;
   CAction *queryDeleteRecordAction;
   CAction *queryInsertRecordAction;
-  QPopupMenu *queryTypesMenu;
-  QPopupMenu *saveTypesMenu;
+  Q3PopupMenu *queryTypesMenu;
+  Q3PopupMenu *saveTypesMenu;
 
-  QPopupMenu *viewQueryTabsMenu;
-  QPopupMenu *viewResultTabsMenu;
+  Q3PopupMenu *viewQueryTabsMenu;
+  Q3PopupMenu *viewResultTabsMenu;
 
   QToolButton *queryTypeButton;
-  QPopupMenu * queryMenu;
+  Q3PopupMenu * queryMenu;
   int query_type_item_id;
 
   QLabel *read_only_label;
   QLabel *executing_query_label;
 
-  QPtrList<CQuerySet> fifo;
+  Q3PtrList<CQuerySet> fifo;
 
 protected slots:
   void refreshOptions();
@@ -322,12 +329,12 @@ private slots:
 private:
   void init(const QString &connection_name, int querytype, ushort display, const char *name);
   QTimer *closeTimer;
-  QPtrList<CQuerySet> querySetList;    
+  Q3PtrList<CQuerySet> querySetList;    
 
   QToolButton *saveTypeButton;
   CQueryWindowTab* results_tab;
   CQueryWindowTab* query_tab;
-  QGridLayout* CQueryWindowLayout;
+  Q3GridLayout* CQueryWindowLayout;
   CSqlDebugPanel *sqldebugpanel;
   CMySQLServer *mysql_server;  
   CHistoryPanel *history_panel;

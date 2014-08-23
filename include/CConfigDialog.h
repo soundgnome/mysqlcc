@@ -20,10 +20,13 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
 #include "CMyWindow.h"
 
-class QVBoxLayout; 
-class QHBoxLayout; 
+class Q3VBoxLayout; 
+class Q3HBoxLayout; 
 class QPushButton;
 class QTabWidget;
 class CConfig;
@@ -32,7 +35,7 @@ class CConfigDialogTab : public QWidget
 {
   Q_OBJECT
 public:
-  CConfigDialogTab(QWidget* parent = 0,  const char* name = 0, WFlags fl = 0)
+  CConfigDialogTab(QWidget* parent = 0,  const char* name = 0, Qt::WFlags fl = 0)
     : QWidget(parent, name, fl) {} ;
   ~CConfigDialogTab() {};  
   friend class CConfigDialog;
@@ -52,7 +55,7 @@ public:
   CConfigDialog(QWidget* parent,  const char* name);
   ~CConfigDialog();
   void insertTab (CConfigDialogTab * child, int index = -1);
-  void insertTab (CConfigDialogTab * child, const QIconSet & iconset, int index = -1);  
+  void insertTab (CConfigDialogTab * child, const QIcon & iconset, int index = -1);  
   void setCurrentPage(int t = -1);
   QTabWidget * tab() const { return p_tab; }
 
@@ -78,8 +81,8 @@ protected:
 
 private:
   QPushButton* cancelPushButton;
-  QVBoxLayout* CConfigDialogLayout;
-  QHBoxLayout* Layout44;
+  Q3VBoxLayout* CConfigDialogLayout;
+  Q3HBoxLayout* Layout44;
   QTabWidget* p_tab;
 
 };

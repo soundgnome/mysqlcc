@@ -20,6 +20,8 @@
 #include "CMySQLQuery.h"
 #include "globals.h"
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 
 CTablePropertiesWidget::CTablePropertiesWidget(QWidget* parent,  CMySQLServer *m, const QString & t, const QString & d)
 : CProperties(parent, m, "properties")
@@ -81,7 +83,7 @@ CTableProperties::CTableProperties(QWidget* parent, CMySQLServer *m , const QStr
   setCaption("[" + m->connectionName() + "] " + tr("Table Properties"));
 
   setCentralWidget(new QWidget(this, "qt_central_widget"));
-  Form1Layout = new QGridLayout(centralWidget(), 1, 1, 2, 4, "Form1Layout"); 
+  Form1Layout = new Q3GridLayout(centralWidget(), 1, 1, 2, 4, "Form1Layout"); 
   Form1Layout->addMultiCellWidget(new CTablePropertiesWidget(this, m, tablename, dbname), 0, 0, 0, 1);
   QSpacerItem* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
   Form1Layout->addItem(spacer, 1, 0);
@@ -92,7 +94,7 @@ CTableProperties::CTableProperties(QWidget* parent, CMySQLServer *m , const QStr
   closeButton->setText(tr("&Close"));
 
   Form1Layout->addWidget(closeButton, 1, 1);
-  QWhatsThis::add((QWidget *) closeButton, tr("Close this Dialog."));
+  Q3WhatsThis::add((QWidget *) closeButton, tr("Close this Dialog."));
   connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
   myResize(300, 350);
 }

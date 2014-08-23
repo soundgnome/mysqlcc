@@ -19,8 +19,10 @@
 #define CFIELDEDITORWIDGET_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QCloseEvent>
 
-class QMainWindow;
+class Q3MainWindow;
 class CSqlTableItem;
 
 class CFieldEditorWidget : public QWidget
@@ -33,8 +35,8 @@ public:
   virtual void afterInitFieldEditorWidget() {};
   bool readOnly() { return is_read_only; }
   bool closeOnApply() { return close_on_apply; }
-  QMainWindow *mainWindow() const { return main_window; }
-  void setMainWindow(QMainWindow *w) { main_window = w; }
+  Q3MainWindow *mainWindow() const { return main_window; }
+  void setMainWindow(Q3MainWindow *w) { main_window = w; }
   void addHotKeyEditorMenu();
   void message(ushort type, const QString &message);  
 
@@ -57,7 +59,7 @@ public slots:
 private:
   bool close_on_apply;
   bool is_read_only;
-  QMainWindow *main_window;
+  Q3MainWindow *main_window;
   QWidget *main_field_editor_widget;
 };
 

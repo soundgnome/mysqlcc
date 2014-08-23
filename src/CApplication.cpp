@@ -22,7 +22,7 @@
 #include "CSqlEditorFont.h"
 #include "CHistoryView.h"
 #include <qpixmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qdir.h>
 #include <qregexp.h>
 #include <qtranslator.h>
@@ -291,7 +291,7 @@ CApplication::~CApplication()
   if (!ismdi)  //Close all child windows
   {
     CMyWindow *w;
-    QPtrListIterator<CMyWindow> it(*childWindows());
+    Q3PtrListIterator<CMyWindow> it(*childWindows());
     while ((w = it.current()) != 0 )
     {
       ++it;      

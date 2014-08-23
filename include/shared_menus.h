@@ -21,11 +21,13 @@
 #include <qmenubar.h>
 #include <qfontdialog.h>
 #include <qstylefactory.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
 #include "CAction.h"
 #include "CPlugin.h"
 
 class CActionGroup;
-class QPopupMenu;
+class Q3PopupMenu;
 class QFontDialog;
 class QStyleFactory;
 class CPlugin;
@@ -55,7 +57,7 @@ private:
   CPlugin pl;
 };
 
-class CPluginsMenu : public QPopupMenu
+class CPluginsMenu : public Q3PopupMenu
 { 
   Q_OBJECT
     
@@ -67,7 +69,7 @@ private slots:
 };
 
 
-class CHelpMenu : public QPopupMenu
+class CHelpMenu : public Q3PopupMenu
 { 
   Q_OBJECT
     
@@ -87,7 +89,7 @@ private:
 };
 
 
-class COptionsMenu : public QPopupMenu
+class COptionsMenu : public Q3PopupMenu
 { 
   Q_OBJECT
     
@@ -112,8 +114,8 @@ private:
   CAction*      applicationFontAction;
   CAction*      printerFontAction;
   CAction*      queryEditorFontAction;
-  QPopupMenu*   themesMenu;
-  QPopupMenu*   fontsMenu;  
+  Q3PopupMenu*   themesMenu;
+  Q3PopupMenu*   fontsMenu;  
   CAction*  		generalAction;
 };
 

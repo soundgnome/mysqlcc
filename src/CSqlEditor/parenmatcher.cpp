@@ -37,7 +37,7 @@
 
 #include "parenmatcher.h"
 #include "paragdata.h"
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qapplication.h>
 
 #include <private/qrichtext_p.h>

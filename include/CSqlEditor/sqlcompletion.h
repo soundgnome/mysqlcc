@@ -20,7 +20,9 @@
 
 #include "completion.h"
 #include "CSqlEditorFont.h"
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class SqlCompletionEntry
 {
@@ -83,7 +85,7 @@ class SqlEditorCompletion : public EditorCompletion
 public:
   SqlEditorCompletion( Editor *e );
   void addSqlCompletionEntry(const SqlCompletionEntry &c);
-  QValueList<CompletionEntry> completionList( const QString &s, QTextDocument *doc ) const;
+  Q3ValueList<CompletionEntry> completionList( const QString &s, QTextDocument *doc ) const;
   void setContext( QObjectList *toplevels, QObject *this_ );
   void addCompletionEntry(const QString &, QTextDocument *, bool) {};
   bool isEmpty() { return sqlCompletionMap.isEmpty(); }
@@ -94,9 +96,9 @@ public slots:
   void clear();
   
 private:
-  typedef QValueList<SqlCompletionEntry> SqlCompletionEntryList;
+  typedef Q3ValueList<SqlCompletionEntry> SqlCompletionEntryList;
   QMap<QString, SqlCompletionEntry> completion_map;
-  QGuardedPtr<QObject> ths;
+  QPointer<QObject> ths;
   QMap<QChar, SqlCompletionEntryList> sqlCompletionMap;
 
 };

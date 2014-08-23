@@ -20,7 +20,9 @@
 #include "CMySQLQuery.h"
 #include "globals.h"
 #include "config.h"
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QShowEvent>
 
 #ifdef DEBUG_LEVEL
 #if DEBUG_LEVEL < 2
@@ -33,7 +35,7 @@
 #endif
 
 CTablesListBox::CTablesListBox(QWidget * parent, CMySQLServer *m, const QString & dbname, const QString & tableName, const char * name)
-: QListBox(parent, name)
+: Q3ListBox(parent, name)
 {  
 #ifdef DEBUG
   qDebug("CTablesListBox::CTablesListBox(QWidget *, CMySQLServer *, '%s', '%s', const char *)", debug_string(dbname), debug_string(tableName));
@@ -41,21 +43,21 @@ CTablesListBox::CTablesListBox(QWidget * parent, CMySQLServer *m, const QString 
 
   if (!name)
     setName("CTablesListBox");
-  setSelectionMode(QListBox::Extended);
+  setSelectionMode(Q3ListBox::Extended);
   numItems = -1;
   mysql = m;
   database_name = mysql->mysql()->quote(dbname);
   m_tableName = tableName;
-  connect(this, SIGNAL(rightButtonClicked(QListBoxItem *, const QPoint &)), this, SLOT(displayMenu(QListBoxItem *, const QPoint &)));
+  connect(this, SIGNAL(rightButtonClicked(Q3ListBoxItem *, const QPoint &)), this, SLOT(displayMenu(Q3ListBoxItem *, const QPoint &)));
 }
 
-void CTablesListBox::displayMenu(QListBoxItem *, const QPoint & pos)
+void CTablesListBox::displayMenu(Q3ListBoxItem *, const QPoint & pos)
 {
 #ifdef DEBUG
   qDebug("CTablesListBox::displayMenu()");
 #endif
 
-  QPopupMenu *p_itemMenu = new QPopupMenu();
+  Q3PopupMenu *p_itemMenu = new Q3PopupMenu();
   Q_CHECK_PTR(p_itemMenu);  
   p_itemMenu->insertItem(getPixmapIcon("refreshTablesIcon"), tr("Refresh"), 1);
   if (p_itemMenu->exec(pos) == 1)
