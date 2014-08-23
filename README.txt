@@ -20,8 +20,8 @@ screen in MySQL Control Center.
 
 IMPORTANT:
 
-Send bug (error) reports, questions and comments to the mailing list
-at mysqlcc@lists.mysql.com
+The upstream project this was forked from can be found on SourceForge:
+http://sourceforge.net/projects/mysqlcc/
 
 
 The latest information about MySQL can be found at:
