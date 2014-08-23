@@ -2451,6 +2451,7 @@ echo "${ECHO_T}" >&6
         SAVE_LIBS=$LIBS
 
         mysql_lib="$mysql_lib /usr/lib /usr/lib/mysql \
+                   /usr/lib/x86_64-linux-gnu \
                    /usr/local/lib /usr/local/lib/mysql \
                    /usr/local/mysql/lib /usr/lib64/mysql"
 
