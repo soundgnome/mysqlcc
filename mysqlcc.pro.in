@@ -1,3 +1,4 @@
+QT           += qt3support
 TEMPLATE     = app
 CONFIG       += qt thread
 DEFINES      += QT_DLL
