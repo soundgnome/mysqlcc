@@ -46,10 +46,10 @@ public:
   ~Editor();
   virtual void load( const QString &fn );
   virtual void save( const QString &fn );
-  QTextDocument *document() const { return Q3TextEdit::document(); }
-  void placeCursor( const QPoint &p, QTextCursor *c ) { Q3TextEdit::placeCursor( p, c ); }
-  void setDocument( QTextDocument *doc ) { Q3TextEdit::setDocument( doc ); }
-  QTextCursor *textCursor() const { return Q3TextEdit::textCursor(); }
+  Q3TextDocument *document() const { return Q3TextEdit::document(); }
+  void placeCursor( const QPoint &p, Q3TextCursor *c ) { Q3TextEdit::placeCursor( p, c ); }
+  void setDocument( Q3TextDocument *doc ) { Q3TextEdit::setDocument( doc ); }
+  Q3TextCursor *textCursor() const { return Q3TextEdit::textCursor(); }
   void repaintChanged() { Q3TextEdit::repaintChanged(); }
   
   virtual EditorCompletion *completionManager() { return 0; }
@@ -75,7 +75,7 @@ signals:
   void intervalChanged();
   
 private slots:
-  void cursorPosChanged( QTextCursor *c );
+  void cursorPosChanged( Q3TextCursor *c );
   void doChangeInterval();
   void commentSelection();
   void uncommentSelection();
