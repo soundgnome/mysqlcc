@@ -3168,8 +3168,8 @@ fi;
   QTDIR=$qt_arg
  fi
  if test ! -d "$QTDIR" ; then
-  for d in /usr/share/qt3 /usr/qt3 /usr/lib/qt3 /usr/local/qt3 \
-  /usr/local/lib/qt3 /opt/qt3 /usr/qt /usr/lib/qt /usr/local/qt \
+  for d in /usr/share/qt4 /usr/qt4 /usr/lib/qt4 /usr/local/qt4 \
+  /usr/local/lib/qt4 /opt/qt4 /usr/qt /usr/lib/qt /usr/local/qt \
   /usr/local/lib/qt /opt/qt; do
    if test -d $d  ; then
     QTDIR=$d
@@ -3179,19 +3179,19 @@ fi;
  fi
 
 if test ! -d "$QTDIR" ; then
- echo "Qt is not installed. Please install QT 3.0.5 or later"
+ echo "Qt is not installed. Please install QT 4.0 or later"
  exit 1
 fi
 
-echo "$as_me:$LINENO: checking \"if Qt Version in $QTDIR is >= 3.0.5\"" >&5
-echo $ECHO_N "checking \"if Qt Version in $QTDIR is >= 3.0.5\"... $ECHO_C" >&6
+echo "$as_me:$LINENO: checking \"if Qt Version in $QTDIR is >= 4.0\"" >&5
+echo $ECHO_N "checking \"if Qt Version in $QTDIR is >= 4.0\"... $ECHO_C" >&6
 CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
 cat >conftest.$ac_ext <<_ACEOF
 #line $LINENO "configure"
 #include "confdefs.h"
 
-#include <qglobal.h>
-#if QT_VERSION < 0x030005
+#include <QtCore/qglobal.h>
+#if QT_VERSION < 0x040000
 #error
 #endif
 
@@ -3224,7 +3224,7 @@ rm -f conftest.err conftest.$ac_ext
 echo "$as_me:$LINENO: result: $ac_qt_version_ok" >&5
 echo "${ECHO_T}$ac_qt_version_ok" >&6
 if test "x$ac_qt_version_ok" = "xno"  ; then
-  echo "Please upgrade your Qt library to version 3.0.5 or higher"
+  echo "Please upgrade your Qt library to version 4.0 or higher"
   echo "If you do have the correct version of QT installed somewhere"
   echo "other than $QTDIR, please specify it as --with-qt= argument"
   exit 1
