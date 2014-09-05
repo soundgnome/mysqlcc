@@ -208,10 +208,11 @@ void CProcessListTable::refresh()
   horizontalHeader()->setSortIndicator( -1 );  
   if (query()->exec(sql))
   {
+    uint num_prev_columns = previous_columns_map.count();
     uint num_rows = qry->numRows();
     uint num_fields = qry->numFields();
 
-    bool columns_ok = (keepColumnWidth() && previous_columns_map.count() == num_fields);
+    bool columns_ok = (keepColumnWidth() && num_prev_columns == num_fields);
     if (columns_ok)
       for (uint i = 0; i < num_fields; i++)
         columns_ok &= (previous_columns_map[i].label == query()->fields(i).name);
@@ -394,13 +395,14 @@ void CServerStatusTable::refresh()
   }
   if (query()->exec("SHOW STATUS"))
   {
+    uint num_prev_columns = previous_columns_map.count();
     uint num_rows = query()->numRows();
     uint num_fields = query()->numFields();
     bool adjust = false;
 
     if (is_traditional)
     {
-      bool columns_ok = (keepColumnWidth() && previous_columns_map.count() == num_fields);
+      bool columns_ok = (keepColumnWidth() && num_prev_columns == num_fields);
       if (columns_ok)
         for (uint i = 0; i < num_fields; i++)
           columns_ok &= (previous_columns_map[i].label == query()->fields(i).name);
