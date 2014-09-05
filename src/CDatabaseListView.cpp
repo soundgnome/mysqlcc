@@ -230,8 +230,8 @@ void CDatabaseListView::ContextMenuRequested(Q3ListViewItem *item, const QPoint 
       Q3PopupMenu *menu = new Q3PopupMenu();
       if (consoleWindow()->isApplicationWindow())
       {
-        menu->insertItem(getPixmapIcon("registerServerIcon"), tr("New"), MENU_NEW);
-        menu->insertItem(getPixmapIcon("refreshIcon"), tr("Refresh"), MENU_REFRESH);
+        menu->insertItem(getPixmapIcon("registerServerIcon"), tr("New"), MENU_NEW, INSERT_ITEM_INDEX);
+        menu->insertItem(getPixmapIcon("refreshIcon"), tr("Refresh"), MENU_REFRESH, INSERT_ITEM_INDEX);
         menu->insertSeparator();
       }
       menu->insertItem(tr("Hide"), MENU_HIDE);

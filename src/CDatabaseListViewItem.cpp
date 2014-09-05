@@ -127,7 +127,7 @@ void CDatabaseListViewItemMenu::createPopupMenu(Q3PopupMenu *p)
     if (i->value() != -1 && i->popup() == 0)
     {
       if (!i->pixmap().isNull())
-        p->insertItem(i->pixmap(), i->label(), i->value());
+        p->insertItem(i->pixmap(), i->label(), i->value(), INSERT_ITEM_INDEX);
       else
         p->insertItem(i->label(), i->value());
       p->setItemEnabled(i->value(), i->enabled());
