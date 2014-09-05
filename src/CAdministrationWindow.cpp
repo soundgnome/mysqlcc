@@ -78,10 +78,10 @@ void CProcessListTable::ContextMenuRequested(int row, int col, const QPoint &pos
   Q3PopupMenu *menu = new Q3PopupMenu();
   
     
-  menu->insertItem(getPixmapIcon("chooseFieldsIcon"), tr("Choose Fields"), MENU_COLUMNS_WINDOW);  
+  menu->insertItem(getPixmapIcon("chooseFieldsIcon"), tr("Choose Fields"), MENU_COLUMNS_WINDOW, INSERT_ITEM_INDEX);
   menu->insertSeparator();
 
-  menu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY);
+  menu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY, INSERT_ITEM_INDEX);
 
   menu->insertSeparator();
   menu->setItemEnabled(MENU_COPY, numRows() > 0 && numCols() > 0);
@@ -298,10 +298,10 @@ void CServerStatusTable::ContextMenuRequested(int row, int col, const QPoint &po
 
   Q3PopupMenu *menu = new Q3PopupMenu();
   
-  menu->insertItem(getPixmapIcon("chooseFieldsIcon"), tr("Choose Fields"), MENU_COLUMNS_WINDOW);  
+  menu->insertItem(getPixmapIcon("chooseFieldsIcon"), tr("Choose Fields"), MENU_COLUMNS_WINDOW, INSERT_ITEM_INDEX);
   menu->insertSeparator();
 
-  menu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY);
+  menu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY, INSERT_ITEM_INDEX);
   menu->setItemEnabled(MENU_COPY, numRows() > 0 && numCols() > 0);
 
   menu->insertSeparator();
@@ -309,7 +309,7 @@ void CServerStatusTable::ContextMenuRequested(int row, int col, const QPoint &po
   menu->insertSeparator();  
   menu->insertItem(getPixmapIcon("refreshTablesIcon"), "Refresh", MENU_REFRESH);
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("clearGridIcon"), tr("Clear Grid"), MENU_CLEAR_GRID);
+  menu->insertItem(getPixmapIcon("clearGridIcon"), tr("Clear Grid"), MENU_CLEAR_GRID, INSERT_ITEM_INDEX);
   menu->setItemEnabled (MENU_CLEAR_GRID, !isBlocked());
   menu->insertSeparator();
   menu->insertItem((const QString&)((is_traditional) ? tr("Horizontal Mode") : tr("Vertical Mode")), MENU_TRADITIONAL);
@@ -643,9 +643,9 @@ CAdministrationWindow::CAdministrationWindow(QWidget* parent,  CMySQLServer *m)
 
   save_menu = new Q3PopupMenu(this);
   connect(save_menu, SIGNAL(activated(int)), this, SLOT(save(int)));
-  save_menu->insertItem(getPixmapIcon("showProcessListIcon"), tr("&Process List"), MENU_SAVE_PROCESSLIST);
-  save_menu->insertItem(getPixmapIcon("showStatusIcon"), tr("&Status"), MENU_SAVE_STATUS);
-  save_menu->insertItem(getPixmapIcon("showVariablesIcon"), tr("&Variables"), MENU_SAVE_VARIABLES);
+  save_menu->insertItem(getPixmapIcon("showProcessListIcon"), tr("&Process List"), MENU_SAVE_PROCESSLIST, INSERT_ITEM_INDEX);
+  save_menu->insertItem(getPixmapIcon("showStatusIcon"), tr("&Status"), MENU_SAVE_STATUS, INSERT_ITEM_INDEX);
+  save_menu->insertItem(getPixmapIcon("showVariablesIcon"), tr("&Variables"), MENU_SAVE_VARIABLES, INSERT_ITEM_INDEX);
   save_menu->insertItem(tr("&InnoDB Status"), MENU_SAVE_INNODB_STATUS);
 
   has_innodb = CInnoDBStatus::hasInnoDB(m_mysql);

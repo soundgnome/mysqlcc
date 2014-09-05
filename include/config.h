@@ -31,6 +31,10 @@
 #include "shared.h"
 #endif
 
+/** Temporary for QT4 port */
+#define INSERT_ITEM_INDEX -1
+/**/
+
 #define APPLICATION "MySQL Control Center"
 #define EXENAME "mysqlcc"
 #define VERSION "0.9.8"
