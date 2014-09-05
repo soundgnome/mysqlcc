@@ -35,6 +35,7 @@
 #include <Q3GridLayout>
 #include <Q3Frame>
 #include <Q3PopupMenu>
+#include <Q3Action>
 #include "CMySQLServer.h"
 #include "CShowServerProperties.h"
 #include "CShowDatabaseGroupProperties.h"
@@ -160,7 +161,7 @@ CConsoleWindow::CConsoleWindow(QWidget * parent, bool appwindow, Qt::WFlags f)
   if (isApplicationWindow() && !myApp()->isMDI())
   {
     setName("MainWindow");
-    QAction * fileExitAction = new QAction (tr("Exit"), getPixmapIcon("exitIcon"),
+    Q3Action * fileExitAction = new Q3Action (tr("Exit"), getPixmapIcon("exitIcon"),
       tr("E&xit"), 0, this, "fileExitAction");  //Exit should not be CAction
     connect(fileExitAction, SIGNAL(activated()), this, SLOT(close()));      
     fileExitAction->addTo(fileMenu);
