@@ -35,6 +35,7 @@
 #include <Q3GridLayout>
 #include <Q3PtrList>
 #include <Q3PopupMenu>
+#include <Q3Action>
 #include <QKeyEvent>
 
 
@@ -100,7 +101,7 @@ CHotKeyEditorMenu::CHotKeyEditorMenu(QWidget * parent, QMenuBar *menuBar, const 
   qDebug("CHotKeyEditorMenu::CHotKeyEditorMenu()");
 #endif
   
-  QAction *hotKeyEditorAction = new QAction(tr("HotKey Editor"), getPixmapIcon("keyboardIcon"),
+  Q3Action *hotKeyEditorAction = new Q3Action(tr("HotKey Editor"), getPixmapIcon("keyboardIcon"),
     tr("Hot&Key Editor"), 0, this, "hotKeyEditorAction");
   connect(hotKeyEditorAction, SIGNAL(activated()), this, SLOT(openHotKeyEditor()));
   hotKeyEditorAction->addTo(this);
@@ -154,23 +155,22 @@ void CHotKeyEditorTab::initHotKeys()
 #endif
 
   ListView1->clear();
-  QObjectList *l = window->queryList("CAction", 0, false, false);
+  QObjectList l = window->queryList("CAction", 0, false, false);
 
-  if (l->isEmpty())
+  if (l.empty())
     emit enableButtons(false);
   else
   {
-    QObjectListIt it( *l );
     CAction *action;
-    while ((action = (CAction *) it.current()) != 0)
+    for (int i=0; i < l.size(); ++i)
     {
+      action = (CAction *) l.at(i);
       CHotKeyListViewItem * item = new CHotKeyListViewItem(ListView1, action);      
       item->setText(0, action->parentMenuText() + " | " + action->text());
       if ((int) action->accel() == 0)
         item->setText(1, QString::null);
       else
         item->setText(1, action->accel());
-      ++it;    
     }
     ListView1->setSelected(ListView1->currentItem(), true);
   }
