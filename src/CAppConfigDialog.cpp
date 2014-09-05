@@ -561,7 +561,7 @@ void CSyntaxHighlightConfigTab::init()
   
   connect(Sections, SIGNAL(selectionChanged()), this, SLOT(Refresh()));  
   connect(Bold, SIGNAL(toggled(bool)), this, SLOT(BoldToggled(bool)));  
-  connect(Qt::TextUnderline, SIGNAL(toggled(bool)), this, SLOT(UnderlineToggled(bool)));
+  connect(Underline, SIGNAL(toggled(bool)), this, SLOT(UnderlineToggled(bool)));
   connect(Italic, SIGNAL(toggled(bool)), this, SLOT(ItalicToggled(bool)));
   connect(Font, SIGNAL(activated(const QString &)), this, SLOT(FontChanged(const QString &)));
   connect(Size, SIGNAL(valueChanged(int)), this, SLOT(ValueChanged(int)));  
@@ -723,7 +723,6 @@ CPluginsConfigTab::CPluginsConfigTab(QWidget* parent,  const char* name, Qt::WFl
   
   CPluginsConfigTabLayout->addMultiCellWidget(pluginsList, 2, 2, 0, 2);
   languageChange();
-  clearWState(WState_Polished);
   
   // tab order
   setTabOrder(pluginsPath, pluginsPathBrowse);
@@ -954,7 +953,6 @@ CGeneralAppConfigTab::CGeneralAppConfigTab(QWidget* parent,  const char* name, Q
   
   CGeneralAppConfigTabLayout->addMultiCellWidget(confirmCritical, 7, 7, 0, 1);
   languageChange();
-  clearWState(WState_Polished);
   
   // tab order
   setTabOrder(translationsPath, translationsBrowse);
