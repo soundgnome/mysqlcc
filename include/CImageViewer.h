@@ -23,6 +23,7 @@
 #include <Q3PopupMenu>
 #include <Q3GridLayout>
 #include <QLabel>
+#include <Q3Action>
 
 class CAction;
 class QAction;
@@ -68,7 +69,7 @@ private:
 
   CAction* fileOpenAction;
   CAction* fileSaveAsAction;
-  QAction* fileCloseAction;
+  Q3Action* fileCloseAction;
   CAction* editCopyAction;
   CAction* editScaleContentsAction;
   QToolButton *saveImageTypeButton;

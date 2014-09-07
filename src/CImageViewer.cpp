@@ -34,6 +34,7 @@
 #include <QPixmap>
 #include <Q3StrList>
 #include <ctype.h>
+#include <QImageWriter>
 
 QString g_img_fname_prompt;
 
@@ -81,7 +82,8 @@ void CImageViewer::initFieldEditorWidget()
   mainWindow()->statusBar();
   mainWindow()->setName("CImageViewer");
   init_img_fname_prompt();
-  mainWindow()->setCaption(tr("Image Viewer") + " - " + tr("Column") + ": '" + tableItem->query()->fields(tableItem->index()).name +
+  QString column_name = tableItem->query()->fields(tableItem->index()).name;
+  mainWindow()->setCaption(tr("Image Viewer") + " - " + tr("Column") + ": '" + column_name +
     "' Row" + ": " + QString::number(tableItem->row()) );
   
   widgetLayout = new Q3GridLayout( this, 1, 1, 0, 0, "widgetLayout"); 
@@ -107,7 +109,7 @@ void CImageViewer::initFieldEditorWidget()
     tr("&Copy"), Qt::CTRL + Qt::Key_C, mainWindow(), "editCopyAction");
   editCopyAction->setParentMenuText(tr("Edit"));
 
-  fileCloseAction = new QAction (tr("Close"), getPixmapIcon("closeIcon"),
+  fileCloseAction = new Q3Action (tr("Close"), getPixmapIcon("closeIcon"),
     tr("&Close"), 0, this, "fileCloseAction");
 
   saveImageTypeMenu = new Q3PopupMenu(this);
@@ -225,7 +227,8 @@ bool CImageViewer::loadFromData(const uchar *data, ulong len)
   if (data && len > 0)
   {
     QPixmap p;    
-    if (b = p.loadFromData(data, len))
+    b = p.loadFromData(data, len);
+    if (b)
     {
       image->setPixmap(p);
       mainWindow()->resize(p.width(), p.height());
@@ -247,7 +250,7 @@ bool CImageViewer::loadFromData(const uchar *data, ulong len)
     new_data = 0;
     new_data_len = 0;
     has_modified = true;
-    image->setPixmap(QPixmap(0));
+    image->setPixmap(QPixmap());
   }
 
   canSave(b);
@@ -258,10 +261,9 @@ bool CImageViewer::loadFromData(const uchar *data, ulong len)
 void CImageViewer::openFile()
 { 
   tmpFileName = Q3FileDialog::getOpenFileName(tmpFileName, g_img_fname_prompt);
-  bool ok = false;
   QPixmap p;
   if (!tmpFileName.isEmpty())
-    ok = p.load(tmpFileName);
+    p.load(tmpFileName);
   else
     return;
 
