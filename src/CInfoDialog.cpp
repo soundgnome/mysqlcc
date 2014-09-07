@@ -70,6 +70,8 @@ CInfoDialog::CInfoDialog( QWidget* parent,  const char* name, bool modal, Qt::WF
   PixmapLabel1->setMaximumSize( QSize( 78, 32767 ) );
   QPalette pal;
   QColorGroup cg;
+  QColor black = QColor( 0, 0, 0);
+  QColor white = QColor( 255, 255, 255);
   cg.setColor( QColorGroup::Foreground, black );
   cg.setColor( QColorGroup::Button, QColor( 166, 202, 240) );
   cg.setColor( QColorGroup::Light, white );
