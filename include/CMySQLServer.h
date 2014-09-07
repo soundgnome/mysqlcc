@@ -23,6 +23,7 @@
 //Added by qt3to4:
 #include <QCustomEvent>
 #include "CMySQL.h"
+#include <QStringList>
 
 class CMessagePanel;
 class CSqlDebugPanel;

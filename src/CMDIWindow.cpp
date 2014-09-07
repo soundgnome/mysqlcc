@@ -27,6 +27,8 @@
 #include <Q3GridLayout>
 #include <Q3PopupMenu>
 #include <QCloseEvent>
+#include <Q3Action>
+#include <QDesktopWidget>
 
 /*
 CMDIWindow is the class used as the Main Application Widget when mysqlcc is
@@ -58,7 +60,7 @@ CMDIWindow::CMDIWindow(QWidget* parent)
   
   consoleMenu = new Q3PopupMenu(this, "ConsoleMenu");
   
-  QAction * consoleExitAction = new QAction (tr("Exit"), getPixmapIcon("exitIcon"),
+  Q3Action * consoleExitAction = new Q3Action (tr("Exit"), getPixmapIcon("exitIcon"),
     tr("E&xit"), 0, this, "consoleExitAction");  //Exit should not be CAction 
   consoleExitAction->addTo(consoleMenu);
   connect(consoleExitAction, SIGNAL(activated()), this, SLOT(close()));
@@ -198,11 +200,9 @@ void CMDIWindow::closeAllWindows()
 #endif
   
   QWidgetList lst = myApp()->workSpace()->windowList();
-  Q3PtrListIterator<QWidget> it(lst);
-  while (it.current())
+  for (int i=0; i < lst.size(); ++i)
   {
-	  QWidget *w = it.current();
-	  ++it;
+    QWidget *w = lst.at(i);
     w->close(true);
   }
 }

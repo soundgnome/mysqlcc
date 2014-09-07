@@ -122,7 +122,7 @@ void CHistoryView::load()
       QString line = QString::null;
       if (!buffer.isEmpty())
       {                
-        for (uint i = 0; i < buffer.length(); i++)
+        for (int i = 0; i < buffer.length(); i++)
         {
           if (!quote && (buffer.at(i) == '\"'))
             quote = true;
