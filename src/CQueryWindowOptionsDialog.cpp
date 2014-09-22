@@ -92,7 +92,6 @@ CQueryWindowOptionsTab::CQueryWindowOptionsTab(QWidget* parent, const char* name
   QSpacerItem* spacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
   CQueryWindowOptionsTabLayout->addMultiCell(spacer_2, 6, 6, 0, 1);
   languageChange();
-  clearWState(WState_Polished);
   
   // tab order
   setTabOrder(maxResults, followResultsTab);
@@ -266,7 +265,6 @@ CQueryOptionsTab::CQueryOptionsTab(QWidget* parent, const char* name, Qt::WFlags
   QSpacerItem* spacer_3 = new QSpacerItem(16, 288, QSizePolicy::Minimum, QSizePolicy::Expanding);
   CQueryOptionsTabLayout->addItem(spacer_3, 2, 0);
   languageChange();
-  clearWState(WState_Polished);
   
   // tab order
   setTabOrder(force, use_history_file);

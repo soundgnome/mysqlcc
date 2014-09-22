@@ -32,6 +32,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qinputdialog.h>
+#include <QDateTime>
 //Added by qt3to4:
 #include <QLabel>
 #include <Q3GridLayout>
@@ -117,7 +118,6 @@ CMySQLOptionsTab::CMySQLOptionsTab(QWidget* parent, const char* name, Qt::WFlags
   QSpacerItem* spacer_3 = new QSpacerItem(20, 130, QSizePolicy::Minimum, QSizePolicy::Expanding);
   CMySQLOptionsTabLayout->addItem(spacer_3, 6, 1);
   languageChange();
-  clearWState(WState_Polished);
   
   // tab order
   setTabOrder(connectTimeout, selectLimit);
@@ -405,9 +405,9 @@ void CDatabaseServerOptionsTab::AddDatabase()
   QString db = QInputDialog::getText(tr("Database"), tr("Please enter the Database Name"), QLineEdit::Normal, QString::null, &ok);
   if (ok && !db.isEmpty())
   {
-    if (databases->findItem(db, Qt::ExactMatch
+    if (databases->findItem(db, Q3ListBox::ExactMatch
 #ifndef WIN32
-      | Qt::CaseSensitive  //Windows is case sensitive for databases.
+      | Q3ListBox::CaseSensitive  //Windows is case sensitive for databases.
 #endif
      ) == 0)
     {
@@ -618,7 +618,6 @@ CGeneralServerOptionsTab::CGeneralServerOptionsTab(bool isediting, QWidget * par
   QSpacerItem* spacer_3 = new QSpacerItem(20, 160, QSizePolicy::Minimum, QSizePolicy::Expanding);
   CGeneralServerOptionsTabLayout->addItem(spacer_3, 9, 3);
   languageChange();
-  clearWState(WState_Polished);
 
   setTabOrder(ConnectionNameBox, HostNameBox);
   setTabOrder(HostNameBox, UserNameBox);
@@ -866,7 +865,7 @@ void CRegisterServerDialog::initConnectionDialog(CMessagePanel *messagepanel)
     okPushButton->setText(tr("&Add"));
     Q3WhatsThis::add(okPushButton, tr("Click to Add a new connection."));
   }
-  is_default_connection_name = GeneralServerOptionsTab->HostNameBox->text() && !GeneralServerOptionsTab->HostNameBox->text().isEmpty();
+  is_default_connection_name = GeneralServerOptionsTab->HostNameBox->text().isEmpty() && !GeneralServerOptionsTab->HostNameBox->text().isEmpty();
   setMinimumSize(QSize(0, 349));
   myResize(421, 349);
 }
