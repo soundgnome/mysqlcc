@@ -60,9 +60,9 @@ void CShowTableProperties::ContextMenuRequested(int, int, const QPoint &pos)
   if (current_item != 0)
   {
     Q3PopupMenu *m = new Q3PopupMenu();
-    m->insertItem(getPixmapIcon("designIcon"), tr("&Edit Table"), MENU_EDIT);
+    m->insertItem(getPixmapIcon("designIcon"), tr("&Edit Table"), MENU_EDIT, INSERT_ITEM_INDEX);
     m->insertSeparator();
-    m->insertItem(getPixmapIcon("refreshTablesIcon"), tr("&Refresh Fields"), MENU_REFRESH);
+    m->insertItem(getPixmapIcon("refreshTablesIcon"), tr("&Refresh Fields"), MENU_REFRESH, INSERT_ITEM_INDEX);
     connect(m, SIGNAL(activated(int)), current_item, SLOT(processMenu(int)));
     m->exec(pos);
     delete m;

@@ -84,7 +84,7 @@ QWidget *CSqlTable::createEditor(int row, int col, bool initFromCell) const
   CNullLineEdit *e = 0;
 
   CSqlTableItem *i = (CSqlTableItem *) item(row, col);
-  if (initFromCell || i && !i->isReplaceable())
+  if ((initFromCell || i) && !i->isReplaceable())
   {
 	  if (i)
     {
@@ -171,7 +171,8 @@ void CSqlTable::endEdit(int row, int col, bool accept, bool)
     
   if (text_different || i->isNull() != editor->isNull())
   {
-    if (edit_ok = doUpdateRecord(editor, i))
+    edit_ok = doUpdateRecord(editor, i);
+    if (edit_ok)
       i->setContentFromEditor(editor);
   }
 
@@ -706,7 +707,7 @@ char * CSqlTable::getWhereClause(int row, ulong *length)
 
   end_ptr = strmov(where, where_text);
 
-  uint count = 0;
+  int count = 0;
   for (it = update_columns.begin(); it != update_columns.end(); ++it)
   {
     count++;
@@ -714,7 +715,8 @@ char * CSqlTable::getWhereClause(int row, ulong *length)
     
     if (field->isPresision())
     {
-      QString tmp = "ABS(" + it.data() + " - " + field->value() + ") < " + QString::number(pow(0.1, field->decimals()));
+      QString field_value = field->value();
+      QString tmp = "ABS(" + it.data() + " - " + field_value + ") < " + QString::number(pow(0.1, field->decimals()));
       end_ptr = strmov(end_ptr, (const char *)(mysql()->mysql()->codec()->fromUnicode(tmp)));      
     }
     else
@@ -781,14 +783,14 @@ void CSqlTable::refresh()
   {
     setBlocked(true);
     query()->dataSeek(0);
-    uint num_fields = query()->numFields();
-    ulong num_rows = query()->numRows();
+    int num_fields = query()->numFields();
+    long num_rows = query()->numRows();
     setNumRows(num_rows);
     setNumCols(num_fields);    
     QPixmap icon;
     bool columns_ok = (keepColumnWidth() && previous_columns_map.count() == num_fields);
 
-    for (uint j = 0; j < num_fields; j++)
+    for (int j = 0; j < num_fields; j++)
     {
       if (IS_PRI_KEY(query()->fields(j).flags))
       {
@@ -809,7 +811,7 @@ void CSqlTable::refresh()
 
     update_type = is_pk ? PRIMARY : is_unique ? UNIQUE : ALL_FIELDS;
 
-    for (uint i = 0; i < num_fields; i++)
+    for (int i = 0; i < num_fields; i++)
     {
       if (IS_PRI_KEY(query()->fields(i).flags))
       {
@@ -850,7 +852,7 @@ void CSqlTable::refresh()
       {
         if (m_cancel)
           break;
-        for (uint i = 0; i < num_fields; i++)
+        for (int i = 0; i < num_fields; i++)
           setItem(z, i, new CSqlTableItem(this, query(), z, i));        
         z++;
       }
@@ -931,10 +933,10 @@ void CSqlTable::ContextMenuRequested(int row, int col, const QPoint &pos)
 
   Q3PopupMenu *menu = new Q3PopupMenu();
 
-  menu->insertItem(getPixmapIcon("insertRowIcon"), tr("&Insert Record"), MENU_INSERT);
+  menu->insertItem(getPixmapIcon("insertRowIcon"), tr("&Insert Record"), MENU_INSERT, INSERT_ITEM_INDEX);
   menu->setItemEnabled (MENU_INSERT, !isReadOnly());
 
-  menu->insertItem(getPixmapIcon("deleteRowIcon"), tr("&Delete Record"), MENU_DELETE);
+  menu->insertItem(getPixmapIcon("deleteRowIcon"), tr("&Delete Record"), MENU_DELETE, INSERT_ITEM_INDEX);
   menu->setItemEnabled (MENU_DELETE, !isReadOnly() && num_rows > 0 && num_cols > 0);
 
   menu->insertSeparator();
@@ -946,8 +948,8 @@ void CSqlTable::ContextMenuRequested(int row, int col, const QPoint &pos)
   if (table_item != 0)
   {
     if (table_item->isBinary())
-      open_menu->insertItem(getPixmapIcon("pictureIcon"), tr("Image &Viewer"), MENU_OPEN_IMAGE);
-    open_menu->insertItem(getPixmapIcon("textEditorIcon"), tr("&Text Editor"), MENU_OPEN_TEXT);
+      open_menu->insertItem(getPixmapIcon("pictureIcon"), tr("Image &Viewer"), MENU_OPEN_IMAGE, INSERT_ITEM_INDEX);
+    open_menu->insertItem(getPixmapIcon("textEditorIcon"), tr("&Text Editor"), MENU_OPEN_TEXT, INSERT_ITEM_INDEX);
   }
   
   int id = menu->insertItem(getPixmapIcon("openIcon"), tr("Open in"), open_menu);
@@ -956,24 +958,24 @@ void CSqlTable::ContextMenuRequested(int row, int col, const QPoint &pos)
 
   menu->insertSeparator();
 
-  menu->insertItem(getPixmapIcon("loadIcon"), tr("&Load from File"), MENU_LOAD);
+  menu->insertItem(getPixmapIcon("loadIcon"), tr("&Load from File"), MENU_LOAD, INSERT_ITEM_INDEX);
   menu->setItemEnabled (MENU_LOAD, !isReadOnly());  //TODO... Need to change
 
-  menu->insertItem(getPixmapIcon("saveIcon"), tr("&Save to File"), MENU_SAVE_TO_FILE);
+  menu->insertItem(getPixmapIcon("saveIcon"), tr("&Save to File"), MENU_SAVE_TO_FILE, INSERT_ITEM_INDEX );
   menu->setItemEnabled(MENU_SAVE_TO_FILE, table_item != 0 && !table_item->isNull());
 
   menu->insertSeparator();
 
-  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), MENU_COPY);
+  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), MENU_COPY, INSERT_ITEM_INDEX);
   menu->setItemEnabled(MENU_COPY, num_cols > 0 && num_rows > 0);
 
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("saveGridResultsIcon"), tr("Save &Results"), MENU_SAVE);
+  menu->insertItem(getPixmapIcon("saveGridResultsIcon"), tr("Save &Results"), MENU_SAVE, INSERT_ITEM_INDEX);
   menu->setItemEnabled(MENU_SAVE, num_cols > 0);
 
   menu->insertSeparator();
 
-  menu->insertItem(getPixmapIcon("clearGridIcon"), tr("C&lear Grid"), MENU_CLEAR_GRID);
+  menu->insertItem(getPixmapIcon("clearGridIcon"), tr("C&lear Grid"), MENU_CLEAR_GRID, INSERT_ITEM_INDEX);
   menu->setItemEnabled(MENU_CLEAR_GRID, num_cols > 0);
 
   int res = menu->exec(pos);
