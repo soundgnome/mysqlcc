@@ -81,7 +81,7 @@ void CTableItem::refreshWidget(bool b)
   CShowTableProperties * w = (CShowTableProperties *) widgetStack()->widget(int_type());
   w->setCurrentItem(this);
 
-  if (real_numCols == 0 && real_numRows == 0 || b)
+  if ((real_numCols == 0 && real_numRows == 0) || b)
   {  
     CMySQLQuery *qry = new CMySQLQuery(mysql()->mysql(), true);
     qry->setEmitMessages(false);

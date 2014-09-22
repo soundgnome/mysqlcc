@@ -156,7 +156,7 @@ void CTableTools::create()
     pOptionsLayout->setAlignment(Qt::AlignTop);
     pOptionsLayout->setSpacing(2);
     pOptionsLayout->setMargin(2);    
-    Layout = new Q3GridLayout;    
+    Layout = new Q3GridLayout(1);
     Layout->setSpacing(6);
     Layout->setMargin(0);
     

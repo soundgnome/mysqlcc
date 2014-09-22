@@ -59,7 +59,7 @@ void CTablesListBox::displayMenu(Q3ListBoxItem *, const QPoint & pos)
 
   Q3PopupMenu *p_itemMenu = new Q3PopupMenu();
   Q_CHECK_PTR(p_itemMenu);  
-  p_itemMenu->insertItem(getPixmapIcon("refreshTablesIcon"), tr("Refresh"), 1);
+  p_itemMenu->insertItem(getPixmapIcon("refreshTablesIcon"), tr("Refresh"), 1, INSERT_ITEM_INDEX);
   if (p_itemMenu->exec(pos) == 1)
     refresh();
   delete p_itemMenu;	

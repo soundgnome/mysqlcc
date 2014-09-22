@@ -19,6 +19,7 @@
 #define CTABLEWINDOW_H
 
 #include <qvariant.h>
+#include <QComboBox>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3ValueList>

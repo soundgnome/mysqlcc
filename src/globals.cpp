@@ -86,7 +86,7 @@ This function shows a window depending on its state.
 void myShowWindow(CMyWindow *wnd)
 { 
   switch (wnd->windowState()) {
-  case Qt::WState_Maximized:
+  case Qt::WindowMaximized:
     wnd->showMaximized();
     break;
     /* Bug in Qt

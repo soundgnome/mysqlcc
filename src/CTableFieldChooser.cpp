@@ -58,10 +58,10 @@ CTableFieldChooserListView::CTableFieldChooserListView(CTableFieldChooser * pare
 void CTableFieldChooserListView::displayMenu( Q3ListViewItem *, const QPoint &pos, int )
 {
   Q3PopupMenu *menu = new Q3PopupMenu();
-  menu->insertItem(getPixmapIcon("checkedIcon"), tr("Check All"), 1);
-  menu->insertItem(getPixmapIcon("uncheckedIcon"), tr("Clear All"), 2);
+  menu->insertItem(getPixmapIcon("checkedIcon"), tr("Check All"), 1, INSERT_ITEM_INDEX);
+  menu->insertItem(getPixmapIcon("uncheckedIcon"), tr("Clear All"), 2, INSERT_ITEM_INDEX);
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("refreshTablesIcon"), "Refresh", MENU_REFRESH);
+  menu->insertItem(getPixmapIcon("refreshTablesIcon"), "Refresh", MENU_REFRESH, INSERT_ITEM_INDEX);
   int res = menu->exec(pos);
   delete menu;
   bool b = false;

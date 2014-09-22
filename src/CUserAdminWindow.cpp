@@ -143,8 +143,7 @@ CUserAdminWindow::CUserAdminWindow(QWidget *parent, CMySQLServer *m, const QStri
   CUserAdminWindowLayout = new Q3GridLayout(centralWidget(), 1, 1, 4, 2, "CUserAdminWindowLayout"); 
   
   Password = new QLineEdit(centralWidget(), "Password");
-  Password->setFrameShape(QFrame::StyledPanel);
-  Password->setFrameShadow(QLineEdit::Sunken);
+  Password->setFrame(true);
   Password->setEchoMode(QLineEdit::Password);
   Q3WhatsThis::add(Password, trUtf8("This is the Password for Username."));
   
@@ -161,8 +160,7 @@ CUserAdminWindow::CUserAdminWindow(QWidget *parent, CMySQLServer *m, const QStri
   CUserAdminWindowLayout->addWidget(passwordLabel, 2, 0);
   
   Host = new QLineEdit(centralWidget(), "Host");
-  Host->setFrameShape(QFrame::StyledPanel);
-  Host->setFrameShadow(QLineEdit::Sunken);
+  Host->setFrame(true);
   Host->setText(hostname);
   Q3WhatsThis::add(Host, trUtf8("This is the Hostname the Username will be connecting from.  Use '%' for referring to Any."));
   
@@ -563,7 +561,7 @@ static const QString strip_char(const QString &str, QChar c)
   if (str.find(c) != -1)
   {
     tmp = QString::null;
-    for (uint i = 0; i < str.length(); i++)
+    for (int i = 0; i < str.length(); i++)
       if (str.at(i) != c)
         tmp += str.at(i);
   }

@@ -36,8 +36,9 @@ void CTextFieldEditor::initFieldEditorWidget()
 { 
   mainWindow()->setName("CTextFieldEditor");
   mainWindow()->statusBar();
-  
-  setCaption(tr("Text Field Editor") + " - " + tr("Column") + ": '" + tableItem->query()->fields(tableItem->index()).name +
+
+  QString field_name = tableItem->query()->fields(tableItem->index()).name;
+  setCaption(tr("Text Field Editor") + " - " + tr("Column") + ": '" + field_name +
     "' row" + ": " + QString::number(tableItem->row()) );
 
   widgetLayout = new Q3GridLayout( this, 1, 1, 0, 0, "widgetLayout");

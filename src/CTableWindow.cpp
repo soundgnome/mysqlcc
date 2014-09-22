@@ -1786,7 +1786,8 @@ bool CTableWindow::alterTable()
       else
         if (t != tableName) 
           sql += ", RENAME " + mysql->mysql()->quote(t);        
-      if (ok = exec(sql))
+      ok = exec(sql);
+      if (ok)
       {
         tableName = t;
         tablePropertiesTab->tableName->setText(tableName);
@@ -1987,13 +1988,13 @@ void CTableWindow::reset()
           QString value;
           QString str = (*it).stripWhiteSpace();
           hasquote = false;
-          for (uint i = 0; i < str.length(); i++)
+          for (int i = 0; i < str.length(); i++)
           {
             c = str.at(i);            
             if (c == '\'' || c == '\"')
               hasquote = !hasquote;
 
-            if ((!hasquote && c == ' ' || i == str.length() - 1) && !line.isEmpty())
+            if (((!hasquote && c == ' ') || i == str.length() - 1) && !line.isEmpty())
             {
               if (i == str.length() - 1)
                 line += c;
@@ -2051,7 +2052,7 @@ void CTableWindow::reset()
             line = line.mid(p + 1).stripWhiteSpace();
             hasquote = false;
             hasparen = false;
-            for (uint x = 0; x < line.length(); x++)
+            for (int x = 0; x < line.length(); x++)
             {
               c = line.at(x);
               if (c == '\'')
@@ -2157,7 +2158,7 @@ void CTableWindow::reset()
     IndexFieldList index_fields;
     CTableWindowComboItem *ft;
     QChar c;
-    uint n;
+    int n;
 
     has_primary_index=false;
     for (QStringList::Iterator idx = keys.begin(); idx != keys.end(); ++idx)
@@ -2209,7 +2210,7 @@ void CTableWindow::reset()
         if (!len.isEmpty())
           idx_field.setLength(len.toInt());
 
-        for (n = 0; n < (uint) fields->numRows(); n++)
+        for (n = 0; n < fields->numRows(); n++)
         {
           ft = (CTableWindowComboItem *)fields->item(n, 2);
           if (ft->Field->FieldName == f)
@@ -2301,18 +2302,18 @@ void CTableWindow::showContextMenu(int row, int, const QPoint &pos)
   Q3PopupMenu *menu = new Q3PopupMenu();
   bool isPrimaryKey = fields->verticalHeader()->label(row).isNull();
   if (isPrimaryKey)
-    menu->insertItem(emptyPkIcon, tr("Dr&op Primary Key"), 0);
+      menu->insertItem(emptyPkIcon, tr("Dr&op Primary Key"), 0, INSERT_ITEM_INDEX);
   else
-    menu->insertItem(pkIcon, tr("Add Primary &Key"), 0);
+    menu->insertItem(pkIcon, tr("Add Primary &Key"), 0, INSERT_ITEM_INDEX);
 
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("insertRowIcon"), tr("&Insert Row"), 1);
-  menu->insertItem(getPixmapIcon("deleteRowIcon"), tr("&Delete Row"), 2);
+  menu->insertItem(getPixmapIcon("insertRowIcon"), tr("&Insert Row"), 1, INSERT_ITEM_INDEX);
+  menu->insertItem(getPixmapIcon("deleteRowIcon"), tr("&Delete Row"), 2, INSERT_ITEM_INDEX);
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), 3);
-  menu->insertItem(getPixmapIcon("pasteIcon"), tr("&Paste"), 4);
+  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), 3, INSERT_ITEM_INDEX);
+  menu->insertItem(getPixmapIcon("pasteIcon"), tr("&Paste"), 4, INSERT_ITEM_INDEX);
   menu->insertSeparator();
-  menu->insertItem(getPixmapIcon("refreshTablesIcon"), tr("&Reload"), 5);
+  menu->insertItem(getPixmapIcon("refreshTablesIcon"), tr("&Reload"), 5, INSERT_ITEM_INDEX);
   
   if (row < 0)
   {

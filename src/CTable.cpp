@@ -132,7 +132,7 @@ QString CTable::copy_data(int row, int col)
     {
       if (horizontalHeader()->sectionSize(current_col) <= 0)
         continue;
-      length = max(strlen(NULL_TEXT), horizontalHeader()->label(current_col).length());
+      length = max(strlen(NULL_TEXT), strlen(horizontalHeader()->label(current_col)));
       max_length_map.insert(current_col, length + 1);
       for (uint i = 0; i < min(max_length_map[current_col] - 1,MAX_COLUMN_LENGTH) + 2; i++)
         separator += "-";
