@@ -32,6 +32,7 @@
 #include <Q3GridLayout>
 #include <Q3PopupMenu>
 #include <QCloseEvent>
+#include <Q3Action>
 
 class Q3GridLayout;
 class QLabel;
@@ -275,7 +276,7 @@ protected:
   CAction *editRedoAction;
   CAction *editUndoAction;
   CAction *editEraseAction;
-  QAction *fileCloseAction;
+  Q3Action *fileCloseAction;
   CAction *viewShowMessagesAction;
   CAction *viewShowColumnsWindowAction;
   CAction *optionsQueryWindowAction;

@@ -100,7 +100,7 @@ void CExplainQueryPanel::contextMenuEvent (QContextMenuEvent * e)
   if (isBlocked())
     return;
   Q3PopupMenu *menu = new Q3PopupMenu();
-  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), MENU_COPY);
+  menu->insertItem(getPixmapIcon("copyIcon"), tr("&Copy"), MENU_COPY, INSERT_ITEM_INDEX);
   int res = menu->exec(e->globalPos());
   delete menu;
   
@@ -349,7 +349,7 @@ bool CQuerySet::execQuery(const QString &query_str)
     if (qry.at(qry.length() -1) != ';')
       qry += ";";
     ulong slash = 0;
-    for (ulong i = 0; i < qry.length(); i++)
+    for (long i = 0; i < qry.length(); i++)
     {
       if (do_cancel)
         break;
@@ -457,7 +457,6 @@ bool CQuerySet::execQuery(const QString &query_str)
     
     if (query_ok && !do_cancel)
     {
-      bool exp_ok = false;
 
       finished_evt->query_type = queryType;
       finished_evt->read_only = true;
@@ -468,7 +467,6 @@ bool CQuerySet::execQuery(const QString &query_str)
         {
           explain_rows = explain_query->numRows();
           explain_cols = explain_query->numFields();
-          exp_ok = true;
           if (explain_rows == 1)
           {
             explain_query->next(true);
@@ -945,7 +943,7 @@ void CQueryWindow::init(const QString &connection_name, int querytype, ushort di
   connect(filePrintAction, SIGNAL(activated()), this, SLOT(printQuery()));
 #endif
   
-  fileCloseAction = new QAction (tr("Close"), getPixmapIcon("closeIcon"),
+  fileCloseAction = new Q3Action (tr("Close"), getPixmapIcon("closeIcon"),
     tr("&Close"), 0, this, "fileCloseAction");     
   connect(fileCloseAction, SIGNAL(activated()), this, SLOT(close()));
     
@@ -1127,10 +1125,10 @@ void CQueryWindow::init(const QString &connection_name, int querytype, ushort di
   
   queryTypesMenu = new Q3PopupMenu(this, "queryTypesMenu");
   
-  queryTypesMenu->insertItem(getPixmapIcon("selectQueryIcon"), tr("Select Query"), 1);
-  queryTypesMenu->insertItem(getPixmapIcon("updateQueryIcon"), tr("Update Query"), 2);
-  queryTypesMenu->insertItem(getPixmapIcon("appendQueryIcon"), tr("Insert Query"), 3);
-  queryTypesMenu->insertItem(getPixmapIcon("deleteQueryIcon"), tr("Delete Query"), 4);
+  queryTypesMenu->insertItem(getPixmapIcon("selectQueryIcon"), tr("Select Query"), 1, INSERT_ITEM_INDEX);
+  queryTypesMenu->insertItem(getPixmapIcon("updateQueryIcon"), tr("Update Query"), 2, INSERT_ITEM_INDEX);
+  queryTypesMenu->insertItem(getPixmapIcon("appendQueryIcon"), tr("Insert Query"), 3, INSERT_ITEM_INDEX);
+  queryTypesMenu->insertItem(getPixmapIcon("deleteQueryIcon"), tr("Delete Query"), 4, INSERT_ITEM_INDEX);
   
   queryTypesMenu->connectItem(1,this, SLOT(selectQuery()));
   queryTypesMenu->connectItem(2,this, SLOT(updateQuery()));
@@ -1441,6 +1439,7 @@ void CQueryWindow::deleteTab()
 {
   CQuerySet *q = currentQuerySet();
   if (q)
+  {
     if (!q->isBusy() && !q->isCanceling())
     {
       if (myApp()->confirmCritical())
@@ -1459,6 +1458,7 @@ void CQueryWindow::deleteTab()
     }
     else
       messagePanel()->information("Can't close Query Tab;  Query Tab is busy.");
+  }
 }
 
 CQuerySet * CQueryWindow::callEditorSlot(void (CSqlEditor::*slot)(void))
@@ -1923,7 +1923,7 @@ void CQueryWindow::closeEvent(QCloseEvent * e)
       t->cancelQuery();
     }
     else
-      if (t->isBusy() || t->isCanceling() && close_timer)
+      if ((t->isBusy() || t->isCanceling()) && close_timer)
         is_busy = true;
   }
   close_timer = false;

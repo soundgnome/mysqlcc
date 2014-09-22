@@ -160,10 +160,10 @@ void CProperties::RightButtonClicked( Q3ListViewItem *, const QPoint & pos, int 
 #endif
 
   Q3PopupMenu p_itemMenu;
-  p_itemMenu.insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY);
+  p_itemMenu.insertItem(getPixmapIcon("copyIcon"), tr("Copy"), MENU_COPY, INSERT_ITEM_INDEX);
   p_itemMenu.setItemEnabled(MENU_COPY, (details->childCount() > 0));
   p_itemMenu.insertSeparator();
-  p_itemMenu.insertItem(getPixmapIcon("saveIcon"), tr("Save"), MENU_SAVE);
+  p_itemMenu.insertItem(getPixmapIcon("saveIcon"), tr("Save"), MENU_SAVE, INSERT_ITEM_INDEX);
   p_itemMenu.insertSeparator();
   p_itemMenu.insertItem(refreshAction->iconSet(), refreshAction->text(), MENU_REFRESH);
   switch (p_itemMenu.exec(pos))
