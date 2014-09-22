@@ -25,11 +25,11 @@
 #include "config.h"
 #include "globals.h"
 #include "panels.h"
-#include <q3textstream.h>
 #include <qapplication.h>
 #include <qfile.h>
 #include <qstringlist.h>
 #include <qmap.h>
+#include <QDesktopWidget>
 //Added by qt3to4:
 #include <QPixmap>
 #ifndef WIN32
@@ -352,7 +352,7 @@ int mysqlcc_main(int argc, char** argv)
     if (!s.isNull())
     {
       s = charReplace(s, '|', "\n");
-      Q3TextStream ts( &s, QIODevice::ReadOnly);
+      QTextStream ts( &s, QIODevice::ReadOnly);
       ts >> mainwindow;
     }
     if (!err.isEmpty())

@@ -67,10 +67,12 @@ void CPluginsMenu::Activated(const CPlugin &p)
   switch (p.type())
   {
   case Plugin::WIDGET:
+  case Plugin::QUERY_PARSER:
       myShowWindow(new CPluginWindow(myApp()->workSpace(), p));
       break;
 
   case Plugin::NO_WIDGET:
+  case Plugin::NO_TYPE:
     {
       CMySQLCCPlugin *plugin = CPlugin::createPlugin(p);
       plugin->init();

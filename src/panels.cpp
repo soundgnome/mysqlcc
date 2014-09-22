@@ -62,7 +62,7 @@ void CPanelItem::setText(int col, const QString &s)
   else
     real_text = s;
 
-  if (maxDisplay() > -1 && s.length() >= (uint) maxDisplay())
+  if (maxDisplay() > -1 && s.length() >= maxDisplay())
   {
      if (s.length() > MAX_MESSAGE_LENGTH)
        Q3ListViewItem::setText(col, QObject::tr("[BIG QUERY] - Query not stored completely in memory."));
@@ -217,7 +217,7 @@ void CPanel::keyPressEvent(QKeyEvent * e)
     ctrl = true;
   else
   {
-    if (ctrl && e->key() == Qt::Key_C || e->key() == Qt::Key_Insert)
+    if ((ctrl && e->key() == Qt::Key_C) || e->key() == Qt::Key_Insert)
       copy(currentItem());
     ctrl = false;
   }
@@ -251,14 +251,14 @@ void CMessagePanel::displayMenu(Q3ListViewItem *item, const QPoint &pos, int)
   
   Q3PopupMenu *p_itemMenu = new Q3PopupMenu();
   Q_CHECK_PTR(p_itemMenu);  
-  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 1);
+  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 1, INSERT_ITEM_INDEX);
 #ifdef QT_NO_CLIPBOARD
   p_itemMenu->setItemEnabled (1, false);
 #else
   p_itemMenu->setItemEnabled (1, (item != 0));
 #endif 
   p_itemMenu->insertSeparator();
-  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 2);
+  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 2, INSERT_ITEM_INDEX);
   p_itemMenu->insertSeparator();
   p_itemMenu->insertItem(tr("Clear"), 3);
   if (childCount() == 0)
@@ -360,13 +360,13 @@ void CHistoryPanel::displayMenu(Q3ListViewItem *item, const QPoint &pos, int)
 
   QString qry = ((CPanelItem *)item)->realText();
 
-  p_itemMenu->insertItem(getPixmapIcon("executeQueryIcon"), tr("Execute Query"), 1);
+  p_itemMenu->insertItem(getPixmapIcon("executeQueryIcon"), tr("Execute Query"), 1, INSERT_ITEM_INDEX);
 
   if (CMySQLQuery::query_type(qry.lower()) == "select")
-    p_itemMenu->insertItem(tr("Explain Query"), 2);
+    p_itemMenu->insertItem(tr("Explain Query"), 2, INSERT_ITEM_INDEX);
 
   p_itemMenu->insertSeparator();
-  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 3);
+  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 3, INSERT_ITEM_INDEX);
   
 #ifdef QT_NO_CLIPBOARD
   p_itemMenu->setItemEnabled (3, false);
@@ -375,9 +375,9 @@ void CHistoryPanel::displayMenu(Q3ListViewItem *item, const QPoint &pos, int)
 #endif  
   
   p_itemMenu->insertSeparator();
-  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 4);
+  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 4, INSERT_ITEM_INDEX);
   p_itemMenu->insertSeparator();
-  p_itemMenu->insertItem(getPixmapIcon("refreshIcon"), tr("Refresh"), 5);
+  p_itemMenu->insertItem(getPixmapIcon("refreshIcon"), tr("Refresh"), 5, INSERT_ITEM_INDEX);
   
   if (childCount() == 0)  
     p_itemMenu->setItemEnabled(4, false);
@@ -518,7 +518,7 @@ void CSqlDebugPanel::displayMenu(Q3ListViewItem *item, const QPoint &pos, int)
   
   Q3PopupMenu *p_itemMenu = new Q3PopupMenu();
   Q_CHECK_PTR(p_itemMenu);
-  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 1);
+  p_itemMenu->insertItem(getPixmapIcon("copyIcon"), tr("Copy"), 1, INSERT_ITEM_INDEX);
   
 #ifdef QT_NO_CLIPBOARD
   p_itemMenu->setItemEnabled (1, false);
@@ -526,7 +526,7 @@ void CSqlDebugPanel::displayMenu(Q3ListViewItem *item, const QPoint &pos, int)
   p_itemMenu->setItemEnabled (1, (item != 0));
 #endif
   
-  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 2);
+  p_itemMenu->insertItem(getPixmapIcon("saveIcon"), tr("Save"), 2, INSERT_ITEM_INDEX);
   p_itemMenu->insertSeparator();
   p_itemMenu->insertItem(tr("Clear"), 3);  
   
