@@ -68,7 +68,6 @@ CPluginWindow::CPluginWindow(QWidget * parent, const CPlugin &p)
       CPluginWindowLayout->addWidget(pluginWidget, 0, 0);
   }
 #endif
-  clearWState( WState_Polished );
   myResize(600, 400);
 }
 
@@ -141,7 +140,7 @@ void CPluginWindow::customEvent(QCustomEvent *event)
         m.setText(evt->message);
         m.setCaption(tr("Message"));
         if (!evt->pixmap.isNull())
-          m.setIcon(evt->pixmap);
+          m.setIconPixmap(evt->pixmap);
         m.exec();
       }
       delete evt;
