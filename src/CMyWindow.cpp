@@ -23,8 +23,9 @@
 #include <qapplication.h>
 #include <qregexp.h>
 #include <qobject.h>
+#include <qnamespace.h>
+#include <QDesktopWidget>
 //Added by qt3to4:
-#include <Q3TextStream>
 #include <QCloseEvent>
 
 #ifdef QT_OSX_BUILD
@@ -92,10 +93,10 @@ int CMyWindow::getWindowState()
 #endif
   
   if (isMinimized())  
-    return WState_Minimized;
+    return Qt::WindowMinimized;
   else
     if (isMaximized())
-      return WState_Maximized;
+      return Qt::WindowMaximized;
     else
       return 0;      
 }
@@ -165,7 +166,7 @@ bool CMyWindow::loadWindowSettings()
   if (!s.isNull())  
   {
     s = charReplace(s, '|', "\n");
-    Q3TextStream ts( &s, QIODevice::ReadOnly);
+    QTextStream ts( &s, QIODevice::ReadOnly);
     ts >> *this;    
   }
 
@@ -176,7 +177,7 @@ bool CMyWindow::loadWindowSettings()
     if (rx.search(s) != -1)
     {
       windowstate = rx.cap(1).toInt();
-      if (windowstate == 0 || windowstate == WState_Minimized || !isapplicationwindow)
+      if (windowstate == 0 || windowstate == Qt::WindowMinimized || !isapplicationwindow)
       {
         if (isapplicationwindow)
         {
@@ -200,18 +201,20 @@ bool CMyWindow::loadWindowSettings()
   QString p =  QString(HOTKEY_PATH);
   if (CConfig::exists(f, p)) //Read the Hotkey configuration for this window  
   {    
-    QObjectList *l = queryList("QAction", 0, true, false);
-    if (!l->isEmpty())
+    QObjectList lst = queryList("QAction", 0, true, false);
+    if (!lst.isEmpty())
     {
-      QObjectListIt it(*l);
       CAction *action;
       CConfig *cfg_hotkeys = new CConfig(f, p);
-      while ((action = (CAction *) it.current()) != 0)
-      {
-        ulong accel = cfg_hotkeys->readNumberEntry(action->name(), 0xFFFFFF);
-        if (accel != 0xFFFFFF)
-          action->setAccel(accel);
-        ++it;
+      for (int i = 0; i < lst.size(); ++i) {
+        action = (CAction *) lst.at(i);
+        if (action != 0) {
+          ulong accel = cfg_hotkeys->readNumberEntry(action->name(), 0xFFFFFF);
+          if (accel != 0xFFFFFF)
+            action->setAccel(accel);
+        } else {
+          break;
+        }
       }
       delete cfg_hotkeys;
     }
@@ -236,7 +239,7 @@ void CMyWindow::saveWindowSettings()
   saveSettings(cfg);
   cfg->writeEntry(name(), s);
   s = QString::null;
-  Q3TextStream ts( &s, QIODevice::WriteOnly );
+  QTextStream ts( &s, QIODevice::WriteOnly );
   ts << *this;
   s = charReplace(s, '\n', "|");
   cfg->writeEntry("Window " + QString(name()), s);  
