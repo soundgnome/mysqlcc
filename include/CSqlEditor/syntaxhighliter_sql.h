@@ -20,11 +20,11 @@
 
 #include <q3intdict.h>
 #include <qmap.h>
-#include <private/qrichtext_p.h>
+#include <QTextDocument>
 
 class SqlCompletionEntry;
 
-class SyntaxHighlighter_SQL : public QTextPreProcessor
+class SyntaxHighlighter_SQL
 {
 public:
       enum CppIds {

@@ -31,6 +31,7 @@
 #include <qinputdialog.h>
 #include <qclipboard.h>
 #include <qregexp.h>
+#include <QDateTime>
 //Added by qt3to4:
 #include <Q3TextStream>
 #include <QMouseEvent>
@@ -51,10 +52,12 @@ CSqlEditor::CSqlEditor(QWidget *parent, CMySQLServer *m, const char *name)
   {
     completion = new SqlEditorCompletion(this);
     highlighter = new SyntaxHighlighter_SQL(completion->completionMap());
+    /* FIXME
     document()->setPreProcessor(highlighter);
+    */
     CSqlEditorFont *k = CSqlEditorFont::sqlEditorStyles()->find(CSqlEditorFont::PARENTHESES_MATCHING);
     if (k != NULL)
-      document()->setSelectionColor( ParenMatcher::Match, k->Color);
+      this->setSelectionAttributes( ParenMatcher::Match, k->Color, false );
     loadSyntaxFile();
   }
 }
@@ -77,7 +80,7 @@ void CSqlEditor::refreshFonts()
       highlighter->refreshFormats();
     CSqlEditorFont *k = CSqlEditorFont::sqlEditorStyles()->find(CSqlEditorFont::PARENTHESES_MATCHING);
     if (k != NULL)
-      document()->setSelectionColor( ParenMatcher::Match, k->Color);
+      this->setSelectionAttributes( ParenMatcher::Match, k->Color, false );
   }
 }
 
