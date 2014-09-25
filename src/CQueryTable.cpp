@@ -76,7 +76,7 @@ void CQueryTable::refresh()
   {
     setBlocked(true);
     query()->dataSeek(0);
-    uint num_fields = query()->numFields();
+    long num_fields = query()->numFields();
     ulong num_rows = query()->numRows();
     setNumRows(num_rows);
     setNumCols(num_fields);
